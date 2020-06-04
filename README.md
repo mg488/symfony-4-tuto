@@ -1,7 +1,5 @@
 # Le container de services de Symfony
 
-#tuto https://www.youtube.com/watch?v=frAXgi9D6fo
-
 1. Clonez le dépôt
 2. Rendez vous dans le dossier
 3. Ouvrez le projet sur VSCode en tapant `code .`
