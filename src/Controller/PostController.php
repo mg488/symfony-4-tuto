@@ -10,9 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
-    /**
-     * @Route("/", name="post")
-     */
+     
     public function index(PostRepository $repository, MarkDownHelpers $mkdHelpers)
     {   
         $posts = $repository->findAll();
@@ -20,5 +18,11 @@ class PostController extends AbstractController
         return $this->render('post/index.html.twig', [
             'posts' => $parsedPosts
         ]);
+    }
+   
+    public function test()
+    { 
+        
+        return $this->render('post/test.html.twig');
     }
 }

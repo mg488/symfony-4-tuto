@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Nos articles</h1>
-
+    
     {% for post in posts %}
         <h2>{{post.title}}</h2>
         <p>{{post.content | raw}}</p>

@@ -1,3 +1,9 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+   path: /
+   controller: App\Controller\PostController::index
+pathFuncIcidonnelePath:
+   path: /test
+   controller: App\Controller\PostController::test
+advert_index:
+   path: /index-advert #parth('advert_index') =>index-advert
+   controller: App\Controller\AdvertController::index
