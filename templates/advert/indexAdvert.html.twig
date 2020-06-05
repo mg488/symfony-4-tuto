@@ -6,15 +6,19 @@
 <!DOCTYPE html>
 <body>
   <h1>List Advertisements</h1>
-  <h2> {{ name }} </h2>
   <p>
-    Le Hello World est un grand classique en programmation.
-    Il signifie énormément, car cela veut dire que vous avez
-    réussi à exécuter le programme pour accomplir une tâche simple :
-    afficher ce hello world !
-    <br><a href="{{path('advert_view', {'id':5} )}}" class="espace">view advertisement</a>&nbsp;&nbsp;&nbsp;
-    <a href="{{path('advert_edit',{'id':5} )}}" class="">edit advertisement</a>&nbsp;&nbsp;&nbsp;
-    <a href="{{path('advert_delete', {'id':5} )}}" class="">delete advertisement</a>&nbsp;&nbsp;&nbsp;
+    <h2>Liste des annonces</h2>
+
+    <ul>
+      {% for advert in listAdverts %}
+        <li>
+          <a href="{{ path('advert_view', {'id': advert.id}) }}"> {{ advert.title }}</a>
+          par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}
+        </li>
+      {% else %}
+        <li>Pas (encore !) d'annonces</li>
+      {% endfor %}
+    </ul>
   </p>
 </body>
 {% endblock %}

@@ -4,18 +4,37 @@ index:
 pathFuncIcidonnelePath:
    path: /test
    controller: App\Controller\PostController::test
+
 advert_index:
-   path: /advert #parth('advert_index') =>index-advert
-   controller: App\Controller\AdvertController::index
+    path: /advert/{page} #parth('advert_index') =>index-advert
+    controller: App\Controller\AdvertController::index
+    defaults:
+        page: 1 
+    requirements: 
+        page: '\d+'
+
 advert_view:
     path: /advert/view/{id}
     controller: App\Controller\AdvertController::view
+    requirements:
+        id: '\d+'
+
 advert_add:
     path: /advert/add
     controller: App\Controller\AdvertController::add
+
 advert_edit:
     path: /advert/edit/{id}
     controller: App\Controller\AdvertController::edit
+    requirements:
+        id: '\d+'
+
 advert_delete:
     path: /advert/delete/{id}
     controller: App\Controller\AdvertController::delete
+    requirements: 
+        id: '\d+'
+
+advert_menu:
+    path: /advert/menu
+    controller: App\Controller\AdvertController::menuAction
