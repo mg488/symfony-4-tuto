@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdvertController!{% endblock %}
+{% block title %}{{ parent()}} - index Advert{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/symfony-4-tuto/src/Controller/AdvertController.php'|file_link(0) }}">src/Controller/AdvertController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/symfony-4-tuto/templates/advert/index.html.twig'|file_link(0) }}">templates/advert/index.html.twig</a></code></li>
-    </ul>
-</div>
+<!DOCTYPE html>
+<body>
+  <h1>List Advertisements</h1>
+  <h2> {{ name }} </h2>
+  <p>
+    Le Hello World est un grand classique en programmation.
+    Il signifie énormément, car cela veut dire que vous avez
+    réussi à exécuter le programme pour accomplir une tâche simple :
+    afficher ce hello world !
+    <br><a href="{{path('advert_view', {'id':5} )}}" class="espace">view advertisement</a>&nbsp;&nbsp;&nbsp;
+    <a href="{{path('advert_edit',{'id':5} )}}" class="">edit advertisement</a>&nbsp;&nbsp;&nbsp;
+    <a href="{{path('advert_delete', {'id':5} )}}" class="">delete advertisement</a>&nbsp;&nbsp;&nbsp;
+  </p>
+</body>
 {% endblock %}

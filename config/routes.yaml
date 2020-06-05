@@ -5,5 +5,17 @@ pathFuncIcidonnelePath:
    path: /test
    controller: App\Controller\PostController::test
 advert_index:
-   path: /index-advert #parth('advert_index') =>index-advert
+   path: /advert #parth('advert_index') =>index-advert
    controller: App\Controller\AdvertController::index
+advert_view:
+    path: /advert/view/{id}
+    controller: App\Controller\AdvertController::view
+advert_add:
+    path: /advert/add
+    controller: App\Controller\AdvertController::add
+advert_edit:
+    path: /advert/edit/{id}
+    controller: App\Controller\AdvertController::edit
+advert_delete:
+    path: /advert/delete/{id}
+    controller: App\Controller\AdvertController::delete
