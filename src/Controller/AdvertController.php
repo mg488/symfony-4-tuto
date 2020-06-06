@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AntispamService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,13 +75,22 @@ class AdvertController extends AbstractController
     }
 
     // /*********************add********************************************/ //
-    public function add(Request $request) :Response
+    public function add(Request $request, AntispamService $antispam) :Response
     {
-            if($request->isMethod('POST')){
-                $this->addFlash('notice', 'Annonce bien enregistrée');
-                return $this->redirectToRoute('advert_view', ['id' => 5]);
-            }
+            // if($request->isMethod('POST')){
+            //     $this->addFlash('notice', 'Annonce bien enregistrée');
+            //     return $this->redirectToRoute('advert_view', ['id' => 5]);
+            // }
             
+            // return $this->render('advert/addAdvert.html.twig');
+            
+            //******************#test du service antiSapm#************************//
+            $text = 'ça fait plus de cinq caracters';
+            if ($antispam->isSpam($text)) {
+                $infoMessage = 'Votre message a été détecté comme spam !';
+                // throw new \Exception('Votre message a été détecté comme spam !');
+                return $this->render('advert/spam.html.twig',['infoMessage'=>$infoMessage]);
+            }
             return $this->render('advert/addAdvert.html.twig');
     }
     // /*********************edit********************************************/ //
