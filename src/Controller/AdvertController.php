@@ -9,9 +9,31 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class AdvertController extends AbstractController
 {
+    
+    // public function sendEmail(MailerInterface $mailer){
+    //     $happyMessage = '1er email send of gm in symfony';
+
+    //     $email = (new Email())
+    //         ->from('contactvillgedenguith@gmail.com')
+    //         ->to('contactvillgedenguith@gmail.com')
+    //         ->subject('Site update just happened!')
+    //         ->text('Someone just updated the site. We told them: '.$happyMessage);
+
+    //     $mailer->send($email);
+    // }
+    public function contactAction(){
+        $this->addFlash('info','La page decontact n\'est pas encore disponible');
+        
+        $this->addFlash('info','elle sera bientôt mise en place');
+        return $this->render('advert/contact.html.twig');
+        // return $this->redirectToRoute('advert_contact');
+
+    }
     public function menuAction()
     {
       // On fixe en dur une liste ici, bien entendu par la suite
@@ -88,7 +110,6 @@ class AdvertController extends AbstractController
             $text = 'ça fait plus de cinq caracters';
             if ($antispam->isSpam($text)) {
                 $infoMessage = 'Votre message a été détecté comme spam !';
-                // throw new \Exception('Votre message a été détecté comme spam !');
                 return $this->render('advert/spam.html.twig',['infoMessage'=>$infoMessage]);
             }
             return $this->render('advert/addAdvert.html.twig');
