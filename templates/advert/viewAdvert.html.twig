@@ -2,7 +2,12 @@
 {% block title %} {{ parent()}} - annonce {{ advert.id }}{% endblock %}
 
 {% block body %}
-
+    <!-- //notice :Annonce bien enregistrée -->
+    {% for message in app.flashes('notice') %}
+    <div class="modal-body">
+        <div class="alert alert-primary" role="alert">{{ message }} <br></div>
+    </div>
+    {% endfor %}
   <h2>{{ advert.title }}</h2>
   <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
 

@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Advert;
 use App\Service\AntispamService;
+use Symfony\Component\Mime\Email;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 class AdvertController extends AbstractController
 {
@@ -97,21 +99,29 @@ class AdvertController extends AbstractController
     }
 
     // /*********************add********************************************/ //
-    public function add(Request $request, AntispamService $antispam) :Response
+    public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
-            // if($request->isMethod('POST')){
-            //     $this->addFlash('notice', 'Annonce bien enregistrée');
-            //     return $this->redirectToRoute('advert_view', ['id' => 5]);
-            // }
-            
-            // return $this->render('advert/addAdvert.html.twig');
-            
-            //******************#test du service antiSapm#************************//
-            $text = 'ça fait plus de cinq caracters';
+              // Création de l'entité
+            $text = 'Nous recherchons un développeur Offre de stage webdesigner débutant sur Lyon. motivé, engagé et pret à relever 
+                    des défis,BlaLBa...';
+            $advert = new Advert();
+            $advert->setTitle('Offre de stage webdesigner');
+            $advert->setAuthor('Fatim Diagne');
+            $advert->setContent($text);
+
             if ($antispam->isSpam($text)) {
                 $infoMessage = 'Votre message a été détecté comme spam !';
                 return $this->render('advert/spam.html.twig',['infoMessage'=>$infoMessage]);
             }
+             //******Étape 2 : On persiste et on « flush » tout ce qui a été persisté avant
+            
+            if($request->isMethod('POST')){
+              $em->persist($advert);
+              $em->flush();
+              $this->addFlash('notice', 'Annonce bien enregistrée.');
+              return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
+            }
+
             return $this->render('advert/addAdvert.html.twig');
     }
     // /*********************edit********************************************/ //
