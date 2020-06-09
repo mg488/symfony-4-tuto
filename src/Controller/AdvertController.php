@@ -7,7 +7,9 @@ use App\Entity\Advert;
 use App\Entity\Application;
 use App\Service\AntispamService;
 use Symfony\Component\Mime\Email;
+use App\Repository\ImageRepository;
 use App\Repository\AdvertRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -147,25 +149,26 @@ class AdvertController extends AbstractController
             return $this->render('advert/addAdvert.html.twig');
     }
     // /*********************edit********************************************/ //
-    public function edit($id, Request $request, AdvertRepository $repo,EntityManagerInterface $em) :Response
+    public function edit($id, Request $request,ImageRepository $repoImg ,AdvertRepository $repo,CategoryRepository $repoCat,EntityManagerInterface $em) :Response
     {
-        // if($request->isMethod('POST')){
-        //     $this->addFlash('notice', 'Annonce bien modifiée');
-        //     $this->redirectToRoute('advert_view', ['id'=>5]);
-        // }
+        $advert = new Advert();
         $advert = $repo->findOneBy(['id'=>$id]);
-        $advert->getImage()->setUrl('http://www.nguith.com/img_album_nguith_web/20200510-100507-nguithois-99-253.jpg');
-        // dd($advert);
-        // $advert = array(
-        //     'title'   => 'Recherche développpeur Symfony',
-        //     'id'      => $id,
-        //     'author'  => 'Alexandre',
-        //     'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
-        //     'date'    => new \Datetime()
-        //   );
-        // $em->flush();
+       
+        if($advert === null)
+        {
+          throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas !");
+        }
+        $listeCategories = $repoCat->findAll();
+        // dd($listeCategories);
+        foreach($listeCategories as $category)
+        {
+          $advert->addCategory($category);
+          $em->persist($advert);
+        }
+        $em->flush();
         return $this->render('advert/editAdvert.html.twig',array(
-            'advert' => $advert
+            'advert' => $advert,
+            'listeCategories'=>$listeCategories
           ));
     }
     public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) :Response

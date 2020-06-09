@@ -2,6 +2,7 @@
 {% block title %} {{ parent() }} - editer une annoce {% endblock %}
 {% block body %}
 {% include "advert/form.html.twig" %}
+  <body>
     <h1> Editer l'annonce id:{{advert.id}}</h1>
 
     <p>
@@ -15,4 +16,5 @@
           Retour à l'annonce
         </a>
       </p>
+  </body>
 {% endblock %}

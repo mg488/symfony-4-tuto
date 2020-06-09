@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Entity\Image;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdvertRepository")
@@ -13,8 +15,11 @@ class Advert
 {
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"})
+     * @ORM\JoinTable(name="Tabadvert_category")
      */
     private $image;
+    private $categories;
 
     /**
      * @ORM\Id()
@@ -56,6 +61,7 @@ class Advert
     public function __construct(){
         //par défaut la date de création est la date du jour
         $this->date_crea= new \Datetime();
+        $this->categories = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -143,4 +149,19 @@ class Advert
     {
       return $this->image;
     }
+    //******addCategory, removeCategory, getCategories : on a un tableau donc ce quifait que les setter//
+    //et gettes de category sont différents**/
+    public function addCategory(Category $category){
+        //ici on utilise l'ArrayCollection vraiment comme un tableau
+        $this->categories[] = $category;
+    }
+    public function removeCategory(Category $category){
+        //ici on utilise remone méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->categories->removeElement($category);
+    }
+    public function getCategories(){
+        //on récupère une liste de catégories
+        return $this->categories;
+    }
+
 }
