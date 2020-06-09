@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Advert;
+use App\Entity\Application;
 use App\Service\AntispamService;
 use Symfony\Component\Mime\Email;
+use App\Repository\AdvertRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends AbstractController
 {
@@ -43,7 +48,8 @@ class AdvertController extends AbstractController
       $listAdverts = array(
         array('id' => 1, 'title' => 'Recherche développeur Symfony'),
         array('id' => 2, 'title' => 'Mission de webmaster'),
-        array('id' => 3, 'title' => 'Offre de stage webdesigner')
+        array('id' => 3, 'title' => 'Offre de stage webdesigner'),
+        array('id' => 4, 'title' => 'Developpeur JAVA')
       );
   
       return $this->render('advert/menu.html.twig', array(
@@ -52,30 +58,9 @@ class AdvertController extends AbstractController
       ));
     }
     // /*********************index********************************************/ //
-    public function index($page) : Response
+    public function index($page, AdvertRepository $repo) : Response
     {
-          // Notre liste d'annonce en dur
-            $listAdverts = array(
-                array(
-                'title'   => 'Recherche développpeur Symfony',
-                'id'      => 1,
-                'author'  => 'Alexandre',
-                'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
-                'date'    => new \Datetime()),
-                array(
-                'title'   => 'Mission de webmaster',
-                'id'      => 2,
-                'author'  => 'Hugo',
-                'content' => 'Nous recherchons un webmaster capable de maintenir notre site internet. Blabla…',
-                'date'    => new \Datetime()),
-                array(
-                'title'   => 'Offre de stage webdesigner',
-                'id'      => 3,
-                'author'  => 'Mathieu',
-                'content' => 'Nous proposons un poste pour webdesigner. Blabla…',
-                'date'    => new \Datetime())
-            );
-  
+        $listAdverts = $repo->findAll(); 
         if($page < 1){
             throw$this->createNotFoundException('Page "'.$page.'"inexistante');
         }
@@ -84,30 +69,68 @@ class AdvertController extends AbstractController
           ));
     }
     // /*********************views********************************************/ //
-    public function view($id) :Response
+    public function view($id, advertRepository $repo,ApplicationRepository $repApp, EntityManagerInterface $em) :Response
     {
-        $advert = array(
-            'title'   => 'Recherche développpeur Symfony 2',
-            'id'      => $id,
-            'author'  => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony 2 débutant sur Lyon. Blabla…',
-            'date'    => new \Datetime()
-          );
-        return $this->render('advert/viewAdvert.html.twig',array(
-            'advert' => $advert
-          ));
+
+      // On récupère l'annonce $id
+      $advert = new Advert();
+      $advert = $repo->findOneBy(['id'=>$id]);
+      // dd($advert);
+  
+      if (null === $advert) {
+        throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
+      }
+      
+      // On récupère la liste des candidatures de cette annonce
+      $listApplications = $repApp->findBy(array('advert' => $advert));
+      // dd($listApplications);
+
+      return $this->render('advert/viewAdvert.html.twig', array(
+        'advert'           => $advert,
+        'listApplications' => $listApplications
+      ));
     }
 
     // /*********************add********************************************/ //
     public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
-              // Création de l'entité
-            $text = 'Nous recherchons un développeur Offre de stage webdesigner débutant sur Lyon. motivé, engagé et pret à relever 
-                    des défis,BlaLBa...';
+            // Création de l'entité Advert
+            $text='Nous recherchons un développeur Symfony débutant sur Lyon. bien paye avec tous les avantages qu\'il faut';
             $advert = new Advert();
-            $advert->setTitle('Offre de stage webdesigner');
-            $advert->setAuthor('Fatim Diagne');
+            $advert->setTitle('Recherche développeur Symfony.');
+            $advert->setAuthor('Alexandre');
             $advert->setContent($text);
+
+            // Création d'une première candidature
+            $application1 = new Application();
+            $application1->setAuthor('Marine');
+            $application1->setContent("J'ai toutes les qualités requises.");
+
+            // Création d'une deuxième candidature par exemple
+            $application2 = new Application();
+            $application2->setAuthor('Pierre');
+            $application2->setContent("Je suis très motivé.");
+
+            $application3 = new Application();
+            $application3->setAuthor('Babacar');
+            $application3->setContent("Je suis très hyper motivé.");
+
+            // On lie les candidatures à l'annonce
+            $application1->setAdvert($advert);
+            $application2->setAdvert($advert);
+            $application3->setAdvert($advert);
+
+            // Étape 1 : On « persiste » l'entité
+            $em->persist($advert);
+
+            // Étape 1 ter : pour cette relation pas de cascade lorsqu'on persiste Advert, car la relation est
+            // définie dans l'entité Application et non Advert. On doit donc tout persister à la main ici.
+            $em->persist($application1);
+            $em->persist($application2);
+            $em->persist($application3);
+
+            // Étape 2 : On « flush » tout ce qui a été persisté avant
+            // $em->flush();
 
             if ($antispam->isSpam($text)) {
                 $infoMessage = 'Votre message a été détecté comme spam !';
@@ -116,8 +139,7 @@ class AdvertController extends AbstractController
              //******Étape 2 : On persiste et on « flush » tout ce qui a été persisté avant
             
             if($request->isMethod('POST')){
-              $em->persist($advert);
-              $em->flush();
+             
               $this->addFlash('notice', 'Annonce bien enregistrée.');
               return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
             }
@@ -125,29 +147,31 @@ class AdvertController extends AbstractController
             return $this->render('advert/addAdvert.html.twig');
     }
     // /*********************edit********************************************/ //
-    public function edit($id, Request $request) :Response
+    public function edit($id, Request $request, AdvertRepository $repo,EntityManagerInterface $em) :Response
     {
         // if($request->isMethod('POST')){
         //     $this->addFlash('notice', 'Annonce bien modifiée');
         //     $this->redirectToRoute('advert_view', ['id'=>5]);
         // }
-        $advert = array(
-            'title'   => 'Recherche développpeur Symfony',
-            'id'      => $id,
-            'author'  => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
-            'date'    => new \Datetime()
-          );
+        $advert = $repo->findOneBy(['id'=>$id]);
+        $advert->getImage()->setUrl('http://www.nguith.com/img_album_nguith_web/20200510-100507-nguithois-99-253.jpg');
+        // dd($advert);
+        // $advert = array(
+        //     'title'   => 'Recherche développpeur Symfony',
+        //     'id'      => $id,
+        //     'author'  => 'Alexandre',
+        //     'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
+        //     'date'    => new \Datetime()
+        //   );
+        // $em->flush();
         return $this->render('advert/editAdvert.html.twig',array(
             'advert' => $advert
           ));
     }
-    public function delete($id) :Response
+    public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) :Response
     {
-        // if($request->isMethod('GET')){
-        //     $this->addFlash('notice', 'Annonce bien supprimée'); 
-        //     $this->redirectToRoute('advert_view', ['id'=>5]);
-        // }
-        return $this->render('advert/deleteAdvert.html.twig');
-    }
+        $advert=$repo->findOneBy(['id'=>$id]);
+        $em->remove($advert);
+        $em->flush();
+        return $this->redirectToRoute('advert_index');    }
 }

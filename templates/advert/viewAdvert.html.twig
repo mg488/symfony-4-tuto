@@ -8,12 +8,26 @@
         <div class="alert alert-primary" role="alert">{{ message }} <br></div>
     </div>
     {% endfor %}
-  <h2>{{ advert.title }}</h2>
-  <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
-
-  <div class="well">
-    {{ advert.content }}
-  </div>
+    <div class="well">
+        {# On vérifie qu'une image soit bien associée à l'annonce #}
+        
+          {% if advert.image is not null %}
+          <img src="{{ advert.image.url }}" style="width: 100% ;height:150px;" alt="{{ advert.image.alt }}">
+          {% endif %}
+        
+        <h2>{{ advert.title }}</h2>
+        <i>Par {{ advert.author }}, le {{ advert.datecrea|date('d/m/Y H:i:s') }}</i>
+    </div>
+    
+    <div class="well">
+      {{ advert.content | raw}}
+    </div>
+    {% for listApplication in listApplications %}
+      <div class="row col">
+        <p class="font-weight-bold">{{listApplication.author}} le {{listApplication.datecrea | date('d/m/Y H:i:s')}}</p>
+      </div>
+      <p class="col">{{ listApplication.content}}</p>
+    {% endfor %}
 
   <p>
     <a href="{{ path('advert_index') }}" class="btn btn-default">

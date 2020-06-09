@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Image;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,10 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advert
 {
-    public function __construct(){
-        //par défaut la date de création est la date du jour
-        $this->date_crea= new\ Datetime();
-    }
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
+     */
+    private $image;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -32,11 +34,6 @@ class Advert
     private $author;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $date_crea;
@@ -51,6 +48,15 @@ class Advert
      */
     private $published;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
+
+    public function __construct(){
+        //par défaut la date de création est la date du jour
+        $this->date_crea= new \Datetime();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -76,18 +82,6 @@ class Advert
     public function setAuthor(string $author): self
     {
         $this->author = $author;
-
-        return $this;
-    }
-
-    public function getContent(): ?text
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
 
         return $this;
     }
@@ -126,5 +120,27 @@ class Advert
         $this->published = $published;
 
         return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+    public function setImage(Image $image = null)
+    {
+       $this->image = $image; //dans le tutuo pas de return
+       return $this;
+    }
+  
+    public function getImage()
+    {
+      return $this->image;
     }
 }
