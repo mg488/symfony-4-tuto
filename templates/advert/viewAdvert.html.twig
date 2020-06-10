@@ -16,11 +16,20 @@
           {% endif %}
         
         <h2>{{ advert.title }}</h2>
-        <i>Par {{ advert.author }}, le {{ advert.datecrea|date('d/m/Y H:i:s') }}</i>
+        <i>Par {{ advert.author }}, le {{ advert.datecrea | date('d/m/Y H:i:s') }}</i>
     </div>
     
     <div class="well">
       {{ advert.content | raw}}
+      {# affichage des catégories associées à l'annonce#}
+        {% if not advert.categories == null %}
+        <p>
+          Cette annonce est parue dans les catégories suivantes : <br>
+          {% for category in advert.categories %}
+            <a class="text-success">{{ category.name }}{% if not loop.last %}, {% endif %}</a>
+          {% endfor %}
+        </p>
+        {% endif %}
     </div>
     {% for listApplication in listApplications %}
       <div class="row col">

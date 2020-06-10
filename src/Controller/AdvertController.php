@@ -159,16 +159,14 @@ class AdvertController extends AbstractController
           throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas !");
         }
         $listeCategories = $repoCat->findAll();
-        // dd($listeCategories);
         foreach($listeCategories as $category)
         {
           $advert->addCategory($category);
-          $em->persist($advert);
         }
+        $em->persist($advert);
         $em->flush();
         return $this->render('advert/editAdvert.html.twig',array(
-            'advert' => $advert,
-            'listeCategories'=>$listeCategories
+            'advert' => $advert
           ));
     }
     public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) :Response
@@ -176,5 +174,6 @@ class AdvertController extends AbstractController
         $advert=$repo->findOneBy(['id'=>$id]);
         $em->remove($advert);
         $em->flush();
-        return $this->redirectToRoute('advert_index');    }
+        return $this->redirectToRoute('advert_index');    
+      }
 }

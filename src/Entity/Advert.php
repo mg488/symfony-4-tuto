@@ -15,10 +15,12 @@ class Advert
 {
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"})
-     * @ORM\JoinTable(name="Tabadvert_category")
      */
     private $image;
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"})
+     * @ORM\JoinTable(name="advert_category")
+     */
     private $categories;
 
     /**
