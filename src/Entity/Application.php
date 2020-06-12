@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Application
 {
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Advert")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Advert", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
     private $advert;

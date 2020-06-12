@@ -4,4 +4,27 @@
 {% block body %}
     <br>
     <h1>Bienvenue sur la page de test</h1>
-{% endblock %}
+    {% for advert in adverts %}
+        {{ advert.author}} <br>
+    {% endfor %}
+
+    <h1>Candidatures aocciées aux annonces</h1>
+
+    {% for listAdvertsApplication in listAdvertsApplications %}
+        <a class="text-primary">titre annonce : </a>{{listAdvertsApplication.title}} par : <a class="text-success">{{listAdvertsApplication.author}} </a><br>
+        <a class="col text-danger">Libellé annonce :</a>{{listAdvertsApplication.content | raw}} <br> 
+        
+        {% if not listAdvertsApplication.applications.getValues() == null %}
+            <a class="text-warning"><ins>Candidatures associées</ins></a><br>
+            {% for application in listAdvertsApplication.applications.getValues() %}
+                <a class="font-weight-bold">{{ application.author }}</a> : {{ application.content }} <br>
+            {% endfor %}
+            
+        {% endif %}
+
+        {% if not loop.last %}
+            --------------------------------------------------------------------------------------
+            ------------------------------------------------------------------------------------- <br>
+            {% endif %}
+        {% endfor %}
+    {% endblock %}

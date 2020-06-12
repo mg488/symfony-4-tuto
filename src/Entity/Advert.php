@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Image;
 use App\Entity\Category;
+use App\Entity\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -13,6 +14,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Advert
 {
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="advert")
+     */
+    private $applications;
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
      */
@@ -64,6 +69,7 @@ class Advert
         //par défaut la date de création est la date du jour
         $this->date_crea= new \Datetime();
         $this->categories = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -165,5 +171,18 @@ class Advert
         //on récupère une liste de catégories
         return $this->categories;
     }
-
+    public function addApplication(Application $application){
+        $this->applications[] = $application;
+        //on lie l'application à l'annonce
+        //lors de la liaison de l'annonce à l'application dans le controlleur :
+        // ($advert->addApplication($application)) ==> fait appel à addApplication et on en profite pour lier
+        //l'annonce avec $this à l'application
+        $application->setAdvert($this);
+    }
+    public function getApplications(){
+        return $this->applications;
+    }
+    public function removeApplication(Application $application){
+        $this->applications->removeElement($application);
+    }
 }

@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Advert;
+use App\Entity\AdvertSkill;
 use App\Entity\Application;
 use App\Service\AntispamService;
 use Symfony\Component\Mime\Email;
 use App\Repository\ImageRepository;
+use App\Repository\SkillRepository;
 use App\Repository\AdvertRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\AdvertSkillRepository;
 use App\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -62,7 +65,8 @@ class AdvertController extends AbstractController
     // /*********************index********************************************/ //
     public function index($page, AdvertRepository $repo) : Response
     {
-        $listAdverts = $repo->findAll(); 
+        // $listAdverts = $repo->findAll(); 
+        $listAdverts = $repo->myFindAll(); 
         if($page < 1){
             throw$this->createNotFoundException('Page "'.$page.'"inexistante');
         }
@@ -71,13 +75,15 @@ class AdvertController extends AbstractController
           ));
     }
     // /*********************views********************************************/ //
-    public function view($id, advertRepository $repo,ApplicationRepository $repApp, EntityManagerInterface $em) :Response
+    public function view($id, advertRepository $repo,ApplicationRepository $repApp,AdvertSkillRepository $repoAdvertSkill ,EntityManagerInterface $em) :Response
     {
-
       // On récupère l'annonce $id
       $advert = new Advert();
       $advert = $repo->findOneBy(['id'=>$id]);
+      // $advert = $repo->myFindOne($id);
       // dd($advert);
+      // $listApp = $advert->getApplications();
+      // dd($listApp);
   
       if (null === $advert) {
         throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
@@ -86,62 +92,57 @@ class AdvertController extends AbstractController
       // On récupère la liste des candidatures de cette annonce
       $listApplications = $repApp->findBy(array('advert' => $advert));
       // dd($listApplications);
-
+      $listAdvertSkills = $repoAdvertSkill->findBy(['advert'=>$advert]);
+      // dd($listAdvertSkills);
       return $this->render('advert/viewAdvert.html.twig', array(
         'advert'           => $advert,
-        'listApplications' => $listApplications
+        'listApplications' => $listApplications,
+        'listAdvertSkills' => $listAdvertSkills
       ));
     }
 
     // /*********************add********************************************/ //
-    public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
+    public function add(Request $request, AntispamService $antispam,SkillRepository $repoSkill, EntityManagerInterface $em) :Response
     {
             // Création de l'entité Advert
-            $text='Nous recherchons un développeur Symfony débutant sur Lyon. bien paye avec tous les avantages qu\'il faut';
+            $text='Nous recherchons un développeur .net débutant sur Lyon. bien paye avec tous les avantages qu\'il faut';
             $advert = new Advert();
-            $advert->setTitle('Recherche développeur Symfony.');
-            $advert->setAuthor('Alexandre');
+            $advert->setTitle('Recherche .NET');
+            $advert->setAuthor('Moustapha');
             $advert->setContent($text);
+            //on récupére toutes les compétences
+            $listSkills = $repoSkill->findAll();
 
-            // Création d'une première candidature
-            $application1 = new Application();
-            $application1->setAuthor('Marine');
-            $application1->setContent("J'ai toutes les qualités requises.");
+            if ($antispam->isSpam($text))
+            {
+              $infoMessage = 'Votre message a été détecté comme spam !';
+              return $this->render('advert/spam.html.twig',['infoMessage'=>$infoMessage]);
+            }
+            //pour chaque compétence
+            foreach($listSkills as $skill)
+            {
+               // On crée une nouvelle « relation entre 1 annonce et 1 compétence »
+              $advertSkill = new AdvertSkill();
+              // On la lie à l'annonce, qui est ici toujours la même
+              $advertSkill->setAdvert($advert);
+              // On lie l'annoce à la compétence, qui change ici dans la boucle foreach
+              $advertSkill->setSkill($skill);
+               // Arbitrairement, on dit que chaque compétence est requise au niveau 'Expert'
+              $advertSkill->setLevel('Expert');
 
-            // Création d'une deuxième candidature par exemple
-            $application2 = new Application();
-            $application2->setAuthor('Pierre');
-            $application2->setContent("Je suis très motivé.");
-
-            $application3 = new Application();
-            $application3->setAuthor('Babacar');
-            $application3->setContent("Je suis très hyper motivé.");
-
-            // On lie les candidatures à l'annonce
-            $application1->setAdvert($advert);
-            $application2->setAdvert($advert);
-            $application3->setAdvert($advert);
-
-            // Étape 1 : On « persiste » l'entité
+              // Et bien sûr, on persiste cette entité de relation, propriétaire des deux autres relations
+              $em->persist($advertSkill);
+            }
+            // Doctrine ne connait pas encore l'entité $advert. Si vous n'avez pas défini la relation AdvertSkill
+            // avec un cascade persist (ce qui est le cas si vous avez utilisé mon code), alors on doit persister $advert
             $em->persist($advert);
 
-            // Étape 1 ter : pour cette relation pas de cascade lorsqu'on persiste Advert, car la relation est
-            // définie dans l'entité Application et non Advert. On doit donc tout persister à la main ici.
-            $em->persist($application1);
-            $em->persist($application2);
-            $em->persist($application3);
+            // $em->flush();**********************mg
 
-            // Étape 2 : On « flush » tout ce qui a été persisté avant
-            // $em->flush();
-
-            if ($antispam->isSpam($text)) {
-                $infoMessage = 'Votre message a été détecté comme spam !';
-                return $this->render('advert/spam.html.twig',['infoMessage'=>$infoMessage]);
-            }
              //******Étape 2 : On persiste et on « flush » tout ce qui a été persisté avant
             
-            if($request->isMethod('POST')){
-             
+            if($request->isMethod('POST'))
+            {
               $this->addFlash('notice', 'Annonce bien enregistrée.');
               return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
             }
@@ -164,7 +165,7 @@ class AdvertController extends AbstractController
           $advert->addCategory($category);
         }
         $em->persist($advert);
-        $em->flush();
+        // $em->flush();
         return $this->render('advert/editAdvert.html.twig',array(
             'advert' => $advert
           ));
