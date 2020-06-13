@@ -11,7 +11,7 @@
     <h1>Candidatures aocciées aux annonces</h1>
 
     {% for listAdvertsApplication in listAdvertsApplications %}
-        <a class="text-primary">titre annonce : </a>{{listAdvertsApplication.title}} par : <a class="text-success">{{listAdvertsApplication.author}} </a><br>
+        <a class="text-primary">titre annonce {{ listAdvertsApplication.id }}: </a>{{listAdvertsApplication.title}} par : <a class="text-success">{{listAdvertsApplication.author}} </a><br>
         <a class="col text-danger">Libellé annonce :</a>{{listAdvertsApplication.content | raw}} <br> 
         
         {% if not listAdvertsApplication.applications.getValues() == null %}

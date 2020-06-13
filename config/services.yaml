@@ -30,3 +30,11 @@ services:
     App\Service\AntispamService:
         arguments:
             $maxLengt: 50
+
+    App\Service\ApplicationServiceMailer:
+        arguments:
+            - "@mailer"
+    App\Service\ApplicationCreationListener:
+        tags:
+          - { name: doctrine.event_listener, event: postPersist }
+

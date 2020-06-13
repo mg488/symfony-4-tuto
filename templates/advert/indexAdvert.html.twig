@@ -7,11 +7,10 @@
 <body>
   <p>
     <h2>Liste des annonces</h2>
-
     <ul>
       {% for advert in listAdverts %}
         <li>
-          <a href="{{ path('advert_view', {'id': advert.id}) }}"> {{ advert.title }}</a>
+          <a href="{{ path('advert_view', {'id': advert.id}) }}"> {{ advert.title }} id : {{advert.id}}</a>
           par {{ advert.author }}, le {{ advert.datecrea | date('d/m/Y H:i:s') }}
         </li>
       {% else %}

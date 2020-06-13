@@ -106,7 +106,60 @@ class AdvertRepository extends ServiceEntityRepository
                ;
     }    
 
+//**************************************************************************************************************** */
+    //récupérer toutes les annonces qui correspondent à une liste de catégories
+    public function getAdvertWithCategoris(array $listCategories)
+    {
+        $qb = $this
+                    ->createQueryBuilder('a')
+                    ->leftJoin('a.categories','c')
+                    ->addSelect('c')
+                    ;
 
+        $qb->where($qb->expr()->in('c.name',$listCategories));
+
+     return 
+            $qb
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+//********************************************************************************************************************* */
+    //récupérer les X derniers candidatures avec leur annonce associé
+    public function getApplicationsWithAdvert($limit)
+    {
+        $qb = $this
+                    ->createQueryBuilder('a')
+                    ->leftJoin('a.applications','app')
+                    ->orderBy('app.date_crea','DESC')
+                    ->setMaxResults($limit)
+                    ;
+        
+        return
+           $qb
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+//***************************************************************************************************************************** */
+    public function getLisAdvertCategoryApplications($id)
+    {
+        $qb = $this->createQueryBuilder('a')
+                    ->leftJoin('a.applications','app')
+                    ->addSelect('app')
+                    ->leftJoin('a.categories','c')
+                    ->addSelect('c')
+                    ->where('a.id=:id')
+                    ->setParameter(':id',$id)
+                    ;
+        return
+            $qb
+                ->getQuery()
+                ->getResult()
+                ;
+    }
 
     // /**
     //  * @return Advert[] Returns an array of Advert objects

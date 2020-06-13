@@ -7,13 +7,25 @@ use App\Entity\Category;
 use App\Entity\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdvertRepository")
  * @ORM\Table(name="Tabadvert")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Advert
-{
+{   
+
+    /**
+     *@Gedmo\Slug(fields={"title"})
+     *@ORM\Column(name="slug", type="string", length=255, unique=true) 
+     */
+    private $slug;
+    /**
+    * @ORM\Column(name="nb_applications", type="integer")
+    */
+    private $nbApplications = 0;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="advert")
      */
@@ -184,5 +196,30 @@ class Advert
     }
     public function removeApplication(Application $application){
         $this->applications->removeElement($application);
+    }
+    /**
+    * @ORM\PreUpdate
+    */
+    public function updateDate(){
+
+        $this->setDateMaj(new \DateTime());
+    }
+
+
+    public function increaseApplication()
+    {
+        $this->nbApplications++;
+    }
+    public function decreaseApplication()
+    {
+        $this->nbApplications--;
+    }
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

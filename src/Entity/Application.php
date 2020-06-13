@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ApplicationRepository")
  * @ORM\Table(name="Tabapplication")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Application
 {
@@ -108,5 +109,17 @@ class Application
         $this->date_maj = $date_maj;
 
         return $this;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function increase(){
+        $this->getAdvert()->increaseApplication();
+    }
+    /**
+     * @ORM\PreRemove
+     */
+    public function decrease(){
+        $this->getAdvert()->decreaseApplication();
     }
 }
