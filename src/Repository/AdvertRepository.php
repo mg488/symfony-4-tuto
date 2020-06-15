@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Advert;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -90,6 +91,22 @@ class AdvertRepository extends ServiceEntityRepository
             ->setParameter(':start', new \DateTime(date('Y').'-01-01'))
             ->setParameter(':end', new \DateTime(date('Y').'12-31'))
             ;
+    }
+//***************************************************************************************************************** */
+    public function getAdverts($currentPage, $nbPerPage)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->orderBy('a.date_crea','DESC')
+            ;
+        $query = $qb->getQuery();
+        $query 
+            // on définit l'annonce à partir de laquelle commencer la liste
+            ->setFirstResult(($currentPage-1) * $nbPerPage) 
+            //ainsi que le nombre d'annonce à afficher sur une page
+            ->setMaxResults($nbPerPage) 
+            ; 
+        return new Paginator($query,true);
+
     }
 //***************************************************************************************************************** */
     public function getAdvertWithApplications()

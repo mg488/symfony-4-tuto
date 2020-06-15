@@ -58,14 +58,30 @@ class AdvertController extends AbstractController
     }
     // /*********************index* la page indexAdvert.html.twig******************************************/ //
     public function index($page, AdvertRepository $repo) : Response //Optimisé=Okay
-    {
-        $listAdverts = $repo->findAll(); //myFindAll(); : developpé à la main
-        if((int)$page < 1){
+    {       
+        if((int)$page < 1)
+        {
             throw$this->createNotFoundException('Page "'.$page.'"inexistante');
         }
+        //ici je fixe arbitrairement le nombre d'annonce par page à 3
+        //mais bien sûr il faudrait utiliser un paramètre, et y accéder via $this->container->getParameter('nb_per_page')
+        $nbPerPage = 1;
+        //on récupère notre objet Pahginator
+        $listAdverts = $repo->getAdverts($page,$nbPerPage); 
+        //on calcule le nombre total de pages grâce au count($listAdverts)
+        //qui retourne le nombre total d'annonces
+        $nbPages = ceil(count($listAdverts)/$nbPerPage);
+        //si la page n'existe pas, on retourne une 404
+        if($page > $nbPages)
+        {
+          throw $this->createNotFoundException('Page "'.$page.'"inexistante');
+        }
+        //on donne toutes les infos nécessaires à la vue
         return $this->render('advert/indexAdvert.html.twig', array(
-            'listAdverts' => $listAdverts
-          ));
+            'listAdverts' => $listAdverts,
+            'nbPages'     =>$nbPages,
+            'page'        =>$page
+            ));
     }
     // /*********************views**okay******************************************/ //
     public function view($id, advertRepository $repo,AdvertSkillRepository $repoAdvertSkill) :Response //Optimisé=Okay
