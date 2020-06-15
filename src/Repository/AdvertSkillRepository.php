@@ -18,7 +18,26 @@ class AdvertSkillRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, AdvertSkill::class);
     }
-
+    /************************************************************************************************* */
+    public function getAdvtSkils($id)
+    {
+        $qb =$this->createQueryBuilder('advSkil')
+                  ->leftJoin('advSkil.advert','a')
+                  ->addSelect('a')
+                  ->leftJoin('advSkil.skill','s')
+                  ->addSelect('s')
+                  ->where('a.id=:id')//pour l'id de l'annonce, allez chercher les skills associées
+                  ->setParameter(':id',$id)
+                ;
+        return $qb  
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+    
+    
+    
+    
     // /**
     //  * @return AdvertSkill[] Returns an array of AdvertSkill objects
     //  */

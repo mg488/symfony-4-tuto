@@ -47,57 +47,39 @@ class AdvertController extends AbstractController
         // return $this->redirectToRoute('advert_contact');
 
     }
-    public function menuAction()
+    public function menuAction(AdvertRepository $repoAdvert ) : Response //Optimisé=Okay
     {
-      // On fixe en dur une liste ici, bien entendu par la suite
-      // on la récupérera depuis la BDD !
-      $listAdverts = array(
-        array('id' => 1, 'title' => 'Recherche développeur Symfony'),
-        array('id' => 2, 'title' => 'Mission de webmaster'),
-        array('id' => 3, 'title' => 'Offre de stage webdesigner'),
-        array('id' => 4, 'title' => 'Developpeur JAVA')
-      );
-  
+      
+      $listAdverts = $repoAdvert->getAdvertMenu(3);
       return $this->render('advert/menu.html.twig', array(
         // Tout l'intérêt est ici : le contrôleur passe // les variables nécessaires au template menu.html.twig!
         'listAdverts' => $listAdverts
       ));
     }
-    // /*********************index********************************************/ //
-    public function index($page, AdvertRepository $repo) : Response
+    // /*********************index* la page indexAdvert.html.twig******************************************/ //
+    public function index($page, AdvertRepository $repo) : Response //Optimisé=Okay
     {
-        // $listAdverts = $repo->findAll(); 
-        $listAdverts = $repo->myFindAll(); 
-        if($page < 1){
+        $listAdverts = $repo->findAll(); //myFindAll(); : developpé à la main
+        if((int)$page < 1){
             throw$this->createNotFoundException('Page "'.$page.'"inexistante');
         }
         return $this->render('advert/indexAdvert.html.twig', array(
             'listAdverts' => $listAdverts
           ));
     }
-    // /*********************views********************************************/ //
-    public function view($id, advertRepository $repo,ApplicationRepository $repApp,AdvertSkillRepository $repoAdvertSkill ,EntityManagerInterface $em) :Response
+    // /*********************views**okay******************************************/ //
+    public function view($id, advertRepository $repo,AdvertSkillRepository $repoAdvertSkill) :Response //Optimisé=Okay
     {
-      // On récupère l'annonce $id
-      $advert = new Advert();
-      $advert = $repo->findOneBy(['id'=>$id]);
-      // $advert = $repo->myFindOne($id);
-      // dd($advert->getCategories()->getValues());
-      // $listApp = $advert->getApplications();
-      // dd($listApp);
-  
-      if (null === $advert) {
+      //*****On récupère pour l'annonce $id : l'image, les catéfories et les applications associées (queryBuilder)****\
+      $advert = new Advert(['id'=>$id]);
+      $listAdvImgCatApp = $repo->getAdvImgCategoriesApplications($id);
+      if (null === $listAdvImgCatApp) {
         throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
       }
-      
-      // On récupère la liste des candidatures de cette annonce
-      $listApplications = $repApp->findBy(array('advert' => $advert));
-      // dd($listApplications);
-      $listAdvertSkills = $repoAdvertSkill->findBy(['advert'=>$advert]);
-      // dd($listAdvertSkills);
+      //****pour l'id de l'annonce, allez chercher les skills associées*****\
+      $listAdvertSkills = $repoAdvertSkill->getAdvtSkils($id);
       return $this->render('advert/viewAdvert.html.twig', array(
-        'advert'           => $advert,
-        'listApplications' => $listApplications,
+       'listAdvImgCatApp'=>$listAdvImgCatApp[0],
         'listAdvertSkills' => $listAdvertSkills
       ));
     }
@@ -131,7 +113,7 @@ class AdvertController extends AbstractController
             $em->persist($application1);
             $em->persist($application2);
 
-            $em->flush();
+            // $em->flush();
              //******Étape 2 : On persiste et on « flush » tout ce qui a été persisté avant
             
             if($request->isMethod('POST'))
@@ -147,40 +129,23 @@ class AdvertController extends AbstractController
     {
         $advert = new Advert();
         $advert = $repo->findOneBy(['id'=>$id]);
-        //********************modifier une annonce********************************** */
-        // $title = $advert->getTitle().' : annonce modifiée';
-        // $advert->setTitle($title);
-        // dd($advert);
-      //******ajouter un nouveau catégory*******************************************//
-          // $category= new Category();
-          // $em->persist($category->setName('Telecom'));
-        if($advert === null)
-        {
-          throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas !");
-        }
-        $listeCategories = $repoCat->findAll();
-        foreach($listeCategories as $category)
-        {
-          $advert->addCategory($category);
-        }
-        ;
-        //******liason catégory à annonce à la main*******************//
-          // $category= new Category();
-          // $em->persist($category->setName('Intélligence artificeille'));
-          // $category=$repoCat->findByName('Intélligence artificeille')[0];
-          // // dd($category);
-          // $advert->addCategory($category);
-          // // $em->persist($advert);
         
         // $em->flush();
         return $this->render('advert/editAdvert.html.twig',array(
             'advert' => $advert
           ));
     }
-    public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) :Response
+    public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) : Response //Optimisé=Okay
     {
-        $advert=$repo->findOneBy(['id'=>$id]);
-        $em->remove($advert);
+        $advert=$repo->find($id);
+        if($advert === null)
+        {
+          throw NotFoundHttpException('\'annonce avec l\'id : '.$id .'n\'existe pas');
+        }
+        foreach($advert->getCategories() as $category)
+        {
+          $advert->removeCategory($category);
+        }
         $em->flush();
         return $this->redirectToRoute('advert_index');    
       }

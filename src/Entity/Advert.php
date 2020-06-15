@@ -19,7 +19,7 @@ class Advert
 
     /**
      *@Gedmo\Slug(fields={"title"})
-     *@ORM\Column(name="slug", type="string", length=255, unique=true) 
+     *@ORM\Column(name="slug", type="string", length=255, unique=false) 
      */
     private $slug;
     /**
@@ -58,6 +58,7 @@ class Advert
     private $author;
 
     /**
+     ****peut-être utilisé pour gérer automatique les dates: @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $date_crea;
@@ -70,15 +71,17 @@ class Advert
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $published;
+    private $published = true;
 
     /**
      * @ORM\Column(type="text")
      */
     private $content;
 
-    public function __construct(){
-        //par défaut la date de création est la date du jour
+    public function __construct()
+    {
+        //par défaut la date de création est la date du jour et définir
+        //categories et applications comme des ArrayCollection
         $this->date_crea= new \Datetime();
         $this->categories = new ArrayCollection();
         $this->applications = new ArrayCollection();
@@ -171,19 +174,23 @@ class Advert
     }
     //******addCategory, removeCategory, getCategories : on a un tableau donc ce quifait que les setter//
     //et gettes de category sont différents**/
-    public function addCategory(Category $category){
+    public function addCategory(Category $category)
+    {
         //ici on utilise l'ArrayCollection vraiment comme un tableau
         $this->categories[] = $category;
     }
-    public function removeCategory(Category $category){
+    public function removeCategory(Category $category)
+    {
         //ici on utilise remone méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->categories->removeElement($category);
     }
-    public function getCategories(){
+    public function getCategories()
+    {
         //on récupère une liste de catégories
         return $this->categories;
     }
-    public function addApplication(Application $application){
+    public function addApplication(Application $application)
+    {
         $this->applications[] = $application;
         //on lie l'application à l'annonce
         //lors de la liaison de l'annonce à l'application dans le controlleur :
@@ -191,21 +198,22 @@ class Advert
         //l'annonce avec $this à l'application
         $application->setAdvert($this);
     }
-    public function getApplications(){
+    public function getApplications()
+    {
         return $this->applications;
     }
-    public function removeApplication(Application $application){
+    public function removeApplication(Application $application)
+    {
         $this->applications->removeElement($application);
     }
     /**
     * @ORM\PreUpdate
     */
-    public function updateDate(){
-
+    public function updateDate()
+    {
         $this->setDateMaj(new \DateTime());
     }
-
-
+    
     public function increaseApplication()
     {
         $this->nbApplications++;

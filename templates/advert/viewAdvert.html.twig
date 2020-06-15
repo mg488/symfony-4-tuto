@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %} {{ parent()}} - annonce {{ advert.id }}{% endblock %}
+{% block title %} {{ parent()}} - annonce {{ listAdvImgCatApp.id }}{% endblock %}
 
 {% block body %}
     <!-- //notice :Annonce bien enregistrée -->
@@ -10,32 +10,29 @@
     {% endfor %}
     <div class="well">
         {# On vérifie qu'une image soit bien associée à l'annonce #}
-        
-          {% if advert.image is not null %}
-          <img src="{{ advert.image.url }}" style="width: 100% ;height:150px;" alt="{{ advert.image.alt }}">
+          {% if listAdvImgCatApp.image is not null %}
+          <img src="{{ listAdvImgCatApp.image.url }}" style="width: 100% ;height:150px;" alt="{{ listAdvImgCatApp.image.alt }}">
           {% endif %}
-        
-        <h2>{{ advert.title }}</h2>
-        <i>Par {{ advert.author }}, le {{ advert.datecrea | date('d/m/Y H:i:s') }}</i>
+        <h2>{{ listAdvImgCatApp.title }}</h2>
+        <i>Par {{ listAdvImgCatApp.author }}, le {{ listAdvImgCatApp.datecrea | date('d/m/Y H:i:s') }}</i>
     </div>
-    
     <div class="well">
-      {{ advert.content | raw}}
+      {{ listAdvImgCatApp.content | raw}}
       {# affichage des catégories associées à l'annonce#}
-        {% if not advert.categories == null %}
+        {% if not listAdvImgCatApp.categories == null %}
         <p>
           Cette annonce est parue dans les catégories suivantes : <br>
-          {% for category in advert.categories %}
+          {% for category in listAdvImgCatApp.categories %}
             <a class="text-success">{{ category.name }}{% if not loop.last %}, {% endif %}</a>
           {% endfor %}
         </p>
         {% endif %}
     </div>
-    {% for listApplication in listApplications %}
+    {% for application in listAdvImgCatApp.applications %}
       <div class="row col">
-        <p class="font-weight-bold">{{listApplication.author}} le {{listApplication.datecrea | date('d/m/Y H:i:s')}}</p>
+        <p class="font-weight-bold">{{application.author}} le {{application.datecrea | date('d/m/Y H:i:s')}}</p>
       </div>
-      <p class="col">{{ listApplication.content}}</p>
+      <p class="col">{{ application.content}}</p>
     {% endfor %}
 
     {# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
@@ -56,11 +53,11 @@
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>
-    <a href="{{ path('advert_edit', {'id': advert.id}) }}" class="btn btn-default">
+    <a href="{{ path('advert_edit', {'id': listAdvImgCatApp.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-edit"></i>
       Modifier l'annonce
     </a>
-    <a href="{{ path('advert_delete', {'id': advert.id}) }}" class="btn btn-danger">
+    <a href="{{ path('advert_delete', {'id': listAdvImgCatApp.id}) }}" class="btn btn-danger">
       <i class="glyphicon glyphicon-trash"></i>
       Supprimer l'annonce
     </a>

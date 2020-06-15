@@ -160,7 +160,38 @@ class AdvertRepository extends ServiceEntityRepository
                 ->getResult()
                 ;
     }
-
+//******************************************************************************************************************************* */
+    public function getAdvImgCategoriesApplications($id)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->leftJoin('a.image','i')
+                   ->addSelect('i')
+                   ->leftJoin('a.categories','c')
+                   ->addSelect('c')
+                   ->leftJoin('a.applications','app')
+                   ->addSelect('app')
+                   ->where('a.id=:id')
+                   ->setParameter(':id',$id)
+                    ;
+            return $qb
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+    //******************************************************************************************************************************* */
+    public function getAdvertMenu($limit)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->orderBy('a.date_crea','DESC')
+                   ->setMaxResults($limit)
+                   ;
+        return
+            $qb
+                   ->getQuery()
+                   ->getResult()
+            ;
+                    
+    }
     // /**
     //  * @return Advert[] Returns an array of Advert objects
     //  */
