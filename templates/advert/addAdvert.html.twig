@@ -4,6 +4,45 @@
 {% block body %}
     <h1>Ajouter une annonce</h1>
     <div class="well">
-       {{form(form)}} 
+       {#{form(form)}#} 
+        {# débuter le formulaire#}
+       {{form_start(form,{'attr': {'class': 'form-horizontal'}})}} 
+
+       {# les erreurs générales du formulaire #}
+       {{form_errors(form)}}
+
+       {#Génération du label + error + widget pour un champ#}
+       {{form_row(form.date_crea)}}
+       {#Génération manuelle et éclatée #}
+       <div class="form-group">
+           {#Génération du label#}
+           {{form_label(form.title, "Titre de l'annonce",{'label_attr': {'class':'col-sm-3 controle-label'}})}}
+           {#affichage des erreurs pour ce champs#}
+           {{form_errors(form.title)}}
+           {#Génération de l'input#}
+           <div class='col-sm-9'>
+               {{form_widget(form.title,{'attr':{'class': 'form-control'}})}}
+           </div>
+       </div>
+       <div class='form-group'>
+           {{form_label(form.content, "Contenu de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+           {{form_errors(form.content)}}
+           <div class='col-sm-9'>
+                {{form_widget(form.content,{'attr': {'class': 'form-control'}})}}
+            </div>
+       </div>
+       <div class='form-group'>
+           {{form_label(form.author, "Auteur de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+           {{form_errors(form.author)}}
+           <div class='col-sm-9'>
+                {{form_widget(form.author,{'attr': {'class': 'form-control'}})}}
+            </div>
+       </div>
+       {{form_row(form.published)}}
+       {#pour le bouton pas de label ni d'erreurs, on affiche juste le widget#}
+       {{form_widget(form.save, {'attr': {'class':'btn btn-success'}})}}
+        {#form_rest affiche tous les champs manquants duformulaire défini#}
+       {{form_rest(form)}}
+       {{form_end(form)}}
     </div>
 {% endblock %}

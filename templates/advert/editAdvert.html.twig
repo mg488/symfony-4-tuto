@@ -4,13 +4,39 @@
 {% include "advert/form.html.twig" %}
   <body>
     <h1> Editer l'annonce id:{{advert.id}}</h1>
-
     <p>
         Vous éditez une annonce déjà existante, merci de ne pas changer
         l'esprit général de l'annonce déjà publiée.
       </p>
-        <div class="well">
-          {{form(form)}}
+         <div class="well">
+          {{form_start(form,{'attr': {'class': 'form-horizontal'}})}} 
+          {{form_errors(form)}}
+              {{form_row(form.date_crea)}}
+              <div class="form-group">
+                  {{form_label(form.title, "Titre de l'annonce",{'label_attr': {'class':'col-sm-3 controle-label'}})}}
+                  {{form_errors(form.title)}}
+                  <div class='col-sm-9'>
+                      {{form_widget(form.title,{'attr':{'class': 'form-control'}})}}
+                  </div>
+              </div>
+              <div class='form-group'>
+                  {{form_label(form.content, "Contenu de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                  {{form_errors(form.content)}}
+                  <div class='col-sm-9'>
+                        {{form_widget(form.content,{'attr': {'class': 'form-control'}})}}
+                    </div>
+              </div>
+              <div class='form-group'>
+                  {{form_label(form.author, "Auteur de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                  {{form_errors(form.author)}}
+                  <div class='col-sm-9'>
+                        {{form_widget(form.author,{'attr': {'class': 'form-control'}})}}
+                    </div>
+              </div>
+              {{form_row(form.published)}}
+              {{form_widget(form.save, {'attr': {'class':'btn btn-success'}})}}
+          {{form_rest(form)}}
+          {{form_end(form)}}
         </div>
       <p>
         <a href="{{ path('advert_view', {'id': advert.id}) }}" class="btn btn-default">

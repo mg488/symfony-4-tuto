@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Advert;
 use App\Entity\Category;
+use App\Form\AdvertType;
 use App\Entity\AdvertSkill;
 use App\Entity\Application;
 use App\Service\AntispamService;
@@ -22,13 +23,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends AbstractController
@@ -71,7 +72,7 @@ class AdvertController extends AbstractController
         }
         //ici je fixe arbitrairement le nombre d'annonce par page à 3
         //mais bien sûr il faudrait utiliser un paramètre, et y accéder via $this->container->getParameter('nb_per_page')
-        $nbPerPage = 1;
+        $nbPerPage = 3;
         //on récupère notre objet Pahginator
         $listAdverts = $repo->getAdverts($page,$nbPerPage); 
         //on calcule le nombre total de pages grâce au count($listAdverts)
@@ -110,17 +111,8 @@ class AdvertController extends AbstractController
     public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
             $advert = new Advert;
-            // $formBuilder = $this->createFormBuilder($advert); 
-            $formCreate = $this->createForm(FormType::class,$advert); 
-            $form = $formCreate
-                      ->add('date_crea', DateType::class)
-                      ->add('title',     TextType::class)
-                      ->add('content',   TextareaType::class)
-                      ->add('author',    TextType::class)
-                      ->add('published', CheckboxType::class , array('required'=>false))
-                      ->add('Save',      SubmitType::class)
-                      // ->getForm()//*****à ne pas oublier */
-                  ;
+            $form = $this->createForm (AdvertType::class, $advert);
+            
             if($request->isMethod('POST'))
             {
               //*****on fait le lien requête <=> formulaire***\\
@@ -146,26 +138,19 @@ class AdvertController extends AbstractController
     {
         $advert = new Advert();
         $advert = $repo->findOneBy(['id'=>$id]);
-        $formCreate = $this->createForm(FormType::class,$advert);
-        $form = $formCreate
-              ->add('date_crea', DateType::class)
-              ->add('title',     TextType::class)
-              ->add('content',   TextareaType::class)
-              ->add('author',    TextType::class)
-              ->add('published', CheckboxType::class , array('required'=>false))
-              ->add('Save',      SubmitType::class)
-          ; 
+        //*****hydrater$form avec le résultat de  l'entité pour id recherché ($advert)  
+        $form = $this->createForm(AdvertType::class,$advert);
           if($request->isMethod('POST'))
           {
-            if($form->isValid())
+            //*****hydrater $form avec les datas contenues dans la requete POST grance à la métode handleRequest() 
+            if($form->handleRequest($request)->isValid())
             {
               if($antispam->isSpam($advert->getContent()) )
               {
                 throw new NotFoundHttpException('le text descriptif doit contenir au moins 50 caractères');
               }
-              dd($advert);
               $em->persist($advert);
-              // $em->flush();
+              $em->flush();
               $this->addFlash('notice', 'modifications bien enregistrées.');
               return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
             } 
