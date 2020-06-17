@@ -139,7 +139,7 @@ class AdvertController extends AbstractController
         $advert = new Advert();
         $advert = $repo->findOneBy(['id'=>$id]);
         //*****hydrater$form avec le résultat de  l'entité pour id recherché ($advert)  
-        $form = $this->createForm(AdvertType::class,$advert);
+        $form = $this->createForm(AdvertType::class,$advert);//***externalisation du formulaire */
           if($request->isMethod('POST'))
           {
             //*****hydrater $form avec les datas contenues dans la requete POST grance à la métode handleRequest() 
@@ -151,7 +151,7 @@ class AdvertController extends AbstractController
               }
               $em->persist($advert);
               $em->flush();
-              $this->addFlash('notice', 'modifications bien enregistrées.');
+              $this->addFlash('notice', 'modification(s) bien enregistrée(s).');
               return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
             } 
           }

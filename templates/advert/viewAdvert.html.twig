@@ -5,13 +5,13 @@
     <!-- //notice :Annonce bien enregistrée -->
     {% for message in app.flashes('notice') %}
     <div class="modal-body">
-        <div class="alert alert-primary" role="alert">{{ message }} <br></div>
+        <div class="alert alert-success" role="alert">{{ message }} <br></div>
     </div>
     {% endfor %}
     <div class="well">
         {# On vérifie qu'une image soit bien associée à l'annonce #}
           {% if listAdvImgCatApp.image is not null %}
-          <img src="{{ listAdvImgCatApp.image.url }}" style="width: 100% ;height:150px;" alt="{{ listAdvImgCatApp.image.alt }}">
+          <img src="{{ listAdvImgCatApp.image.url }}" style="width: 100% ;height: 100%;" alt="{{ listAdvImgCatApp.image.alt }}">
           {% endif %}
         <h2>{{ listAdvImgCatApp.title }}</h2>
         <i>Par {{ listAdvImgCatApp.author }}, le {{ listAdvImgCatApp.datecrea | date('d/m/Y H:i:s') }}</i>

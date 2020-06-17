@@ -4,6 +4,7 @@ namespace App\Form;
 
 use DateTime;
 use App\Entity\Advert;
+use App\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,6 +29,7 @@ class AdvertType extends AbstractType
                       'attr' => ['class' => 'col-sm-3']))
                       ->add('save',      SubmitType::class)
             ->add('content', TextareaType::class)
+            ->add('image', ImageType::class)
             ->add('save', SubmitType::class, ['attr'=>['class'=>'col-sm-6']])
         ;
     }

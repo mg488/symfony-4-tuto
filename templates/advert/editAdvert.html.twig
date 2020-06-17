@@ -13,7 +13,7 @@
           {{form_errors(form)}}
               {{form_row(form.date_crea)}}
               <div class="form-group">
-                  {{form_label(form.title, "Titre de l'annonce",{'label_attr': {'class':'col-sm-3 controle-label'}})}}
+                  {{form_label(form.title, "Titre de l'annonce",{'label_attr': {'class':'col-sm-3 control-label'}})}}
                   {{form_errors(form.title)}}
                   <div class='col-sm-9'>
                       {{form_widget(form.title,{'attr':{'class': 'form-control'}})}}
@@ -34,6 +34,20 @@
                     </div>
               </div>
               {{form_row(form.published)}}
+              <div class='form-group'>
+                {{form_label(form.image.url, "Url",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                {{form_errors(form.image.url)}}
+                <div class='col-sm-9'>
+                    {{form_widget(form.image.url,{'attr': {'class': 'form-control'}})}}
+                </div>
+              </div>
+            <div class='form-group'>
+                {{form_label(form.image.alt, "Alt",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                {{form_errors(form.image.alt)}}
+                <div class='col-sm-9'>
+                    {{form_widget(form.image.alt,{'attr': {'class': 'form-control'}})}}
+                </div>
+            </div>
               {{form_widget(form.save, {'attr': {'class':'btn btn-success'}})}}
           {{form_rest(form)}}
           {{form_end(form)}}
