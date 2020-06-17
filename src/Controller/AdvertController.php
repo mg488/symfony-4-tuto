@@ -21,8 +21,14 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends AbstractController
@@ -101,54 +107,71 @@ class AdvertController extends AbstractController
     }
 
     // /*********************add********************************************/ //
-    public function add(Request $request, AntispamService $antispam,SkillRepository $repoSkill, EntityManagerInterface $em) :Response
+    public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
-            // Création de l'entité Advert
-            $text='Nous recherchons un développeur CMS débutant sur Lyon. bien paye avec tous les avantages qu\'il faut';
-            $advert = new Advert();
-            $advert->setTitle('Recherche CMS');
-            $advert->setAuthor('bass.momoLyon@gmail.com');
-            $advert->setContent($text);
-           
-            // Création d'une première candidature
-            $application1 = new Application();
-            $application1->setAuthor('Pathé');
-            $application1->setContent("Je suis super motivé etprêt à faire le job.");
-
-            // Création d'une deuxième candidature par exemple
-            $application2 = new Application();
-            $application2->setAuthor('Aurélie');
-            $application2->setContent("Je suis très motivée.");
-              // On lie les candidatures à l'annonce
-            $application1->setAdvert($advert);
-            $application2->setAdvert($advert);
-            
-            // Doctrine ne connait pas encore l'entité $advert. Si vous n'avez pas défini la relation AdvertSkill
-            // avec un cascade persist (ce qui est le cas si vous avez utilisé mon code), alors on doit persister $advert
-            $em->persist($advert);
-            $em->persist($application1);
-            $em->persist($application2);
-
-            // $em->flush();
-             //******Étape 2 : On persiste et on « flush » tout ce qui a été persisté avant
-            
+            $advert = new Advert;
+            // $formBuilder = $this->createFormBuilder($advert); 
+            $formCreate = $this->createForm(FormType::class,$advert); 
+            $form = $formCreate
+                      ->add('date_crea', DateType::class)
+                      ->add('title',     TextType::class)
+                      ->add('content',   TextareaType::class)
+                      ->add('author',    TextType::class)
+                      ->add('published', CheckboxType::class , array('required'=>false))
+                      ->add('Save',      SubmitType::class)
+                      // ->getForm()//*****à ne pas oublier */
+                  ;
             if($request->isMethod('POST'))
             {
-              $this->addFlash('notice', 'Annonce bien enregistrée.');
-              return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
+              //*****on fait le lien requête <=> formulaire***\\
+              //*****à partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur***\\
+              $form->handleRequest($request);
+              //*****test de validité des données contenues dans le formulaire***\\
+              if($form->isValid())
+              {
+                if($antispam->isSpam($advert->getContent()) )
+                {
+                  throw new NotFoundHttpException('le text descriptif doit contenir au moins 50 caractères');
+                }
+                $em->persist($advert);
+                $em->flush();
+                $this->addFlash('notice', 'Annonce bien enregistrée.');
+                return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
+              }
             }
-
-            return $this->render('advert/addAdvert.html.twig');
+            return $this->render('advert/addAdvert.html.twig', array('form'=>$form->createView()));
     }
     // /*********************edit********************************************/ //
-    public function edit($id, Request $request,ImageRepository $repoImg ,AdvertRepository $repo,CategoryRepository $repoCat,EntityManagerInterface $em) :Response
+    public function edit($id, Request $request,AntispamService $antispam,ImageRepository $repoImg ,AdvertRepository $repo,CategoryRepository $repoCat,EntityManagerInterface $em) :Response
     {
         $advert = new Advert();
         $advert = $repo->findOneBy(['id'=>$id]);
-        
-        // $em->flush();
+        $formCreate = $this->createForm(FormType::class,$advert);
+        $form = $formCreate
+              ->add('date_crea', DateType::class)
+              ->add('title',     TextType::class)
+              ->add('content',   TextareaType::class)
+              ->add('author',    TextType::class)
+              ->add('published', CheckboxType::class , array('required'=>false))
+              ->add('Save',      SubmitType::class)
+          ; 
+          if($request->isMethod('POST'))
+          {
+            if($form->isValid())
+            {
+              if($antispam->isSpam($advert->getContent()) )
+              {
+                throw new NotFoundHttpException('le text descriptif doit contenir au moins 50 caractères');
+              }
+              dd($advert);
+              $em->persist($advert);
+              // $em->flush();
+              $this->addFlash('notice', 'modifications bien enregistrées.');
+              return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
+            } 
+          }
         return $this->render('advert/editAdvert.html.twig',array(
-            'advert' => $advert
+            'advert' => $advert, 'form'=>$form->createView()
           ));
     }
     public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) : Response //Optimisé=Okay
@@ -156,7 +179,7 @@ class AdvertController extends AbstractController
         $advert=$repo->find($id);
         if($advert === null)
         {
-          throw NotFoundHttpException('\'annonce avec l\'id : '.$id .'n\'existe pas');
+          throw new NotFoundHttpException('\'annonce avec l\'id : '.$id .'n\'existe pas');
         }
         foreach($advert->getCategories() as $category)
         {
