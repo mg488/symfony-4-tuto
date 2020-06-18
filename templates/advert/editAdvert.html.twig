@@ -1,58 +1,14 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent() }} - editer une annoce {% endblock %}
 {% block body %}
-{% include "advert/form.html.twig" %}
+
   <body>
     <h1> Editer l'annonce id:{{advert.id}}</h1>
     <p>
         Vous éditez une annonce déjà existante, merci de ne pas changer
         l'esprit général de l'annonce déjà publiée.
-      </p>
-         <div class="well">
-          {{form_start(form,{'attr': {'class': 'form-horizontal'}})}} 
-          {{form_errors(form)}}
-              {{form_row(form.date_crea)}}
-              <div class="form-group">
-                  {{form_label(form.title, "Titre de l'annonce",{'label_attr': {'class':'col-sm-3 control-label'}})}}
-                  {{form_errors(form.title)}}
-                  <div class='col-sm-9'>
-                      {{form_widget(form.title,{'attr':{'class': 'form-control'}})}}
-                  </div>
-              </div>
-              <div class='form-group'>
-                  {{form_label(form.content, "Contenu de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-                  {{form_errors(form.content)}}
-                  <div class='col-sm-9'>
-                        {{form_widget(form.content,{'attr': {'class': 'form-control'}})}}
-                    </div>
-              </div>
-              <div class='form-group'>
-                  {{form_label(form.author, "Auteur de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-                  {{form_errors(form.author)}}
-                  <div class='col-sm-9'>
-                        {{form_widget(form.author,{'attr': {'class': 'form-control'}})}}
-                    </div>
-              </div>
-              {{form_row(form.published)}}
-              <div class='form-group'>
-                {{form_label(form.image.url, "Url",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-                {{form_errors(form.image.url)}}
-                <div class='col-sm-9'>
-                    {{form_widget(form.image.url,{'attr': {'class': 'form-control'}})}}
-                </div>
-              </div>
-            <div class='form-group'>
-                {{form_label(form.image.alt, "Alt",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-                {{form_errors(form.image.alt)}}
-                <div class='col-sm-9'>
-                    {{form_widget(form.image.alt,{'attr': {'class': 'form-control'}})}}
-                </div>
-            </div>
-              {{form_widget(form.save, {'attr': {'class':'btn btn-success'}})}}
-          {{form_rest(form)}}
-          {{form_end(form)}}
-        </div>
-      <p>
+        {#on fait appel au formulaire de gestion des annonces#}
+        {% include "advert/formAdvert.html.twig.html.twig" %}
         <a href="{{ path('advert_view', {'id': advert.id}) }}" class="btn btn-default">
           <i class="glyphicon glyphicon-chevron-left"></i>
           Retour à l'annonce
