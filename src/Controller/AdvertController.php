@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Form\AdvertType;
 use App\Entity\AdvertSkill;
 use App\Entity\Application;
+use App\Form\AdvertEditType;
 use App\Service\AntispamService;
 use Symfony\Component\Mime\Email;
 use App\Repository\ImageRepository;
@@ -139,7 +140,7 @@ class AdvertController extends AbstractController
         $advert = new Advert();
         $advert = $repo->findOneBy(['id'=>$id]);
         //*****hydrater$form avec le résultat de  l'entité pour id recherché ($advert)  
-        $form = $this->createForm(AdvertType::class,$advert);//***externalisation du formulaire */
+        $form = $this->createForm(AdvertEditType::class,$advert);//***externalisation du formulaire */
           if($request->isMethod('POST'))
           {
             //*****hydrater $form avec les datas contenues dans la requete POST grance à la métode handleRequest() 

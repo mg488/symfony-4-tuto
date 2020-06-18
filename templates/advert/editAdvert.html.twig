@@ -8,7 +8,9 @@
         Vous éditez une annonce déjà existante, merci de ne pas changer
         l'esprit général de l'annonce déjà publiée.
         {#on fait appel au formulaire de gestion des annonces#}
+        
         {% include "advert/formAdvert.html.twig" %}
+
         <a href="{{ path('advert_view', {'id': advert.id}) }}" class="btn btn-default">
           <i class="glyphicon glyphicon-chevron-left"></i>
           Retour à l'annonce
