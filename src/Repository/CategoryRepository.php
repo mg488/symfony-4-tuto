@@ -18,8 +18,17 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+//*********************queryBuilder pour le tri de categories dans la liste déroulante ajout ou modifier */
+    public function getLikeQueryBuilder($pattern)
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.name LIKE :pattern')
+            ->setParameter('pattern', $pattern)
+        ;
+    }
 
-    // /**
+// /**
     //  * @return Category[] Returns an array of Category objects
     //  */
     /*
