@@ -126,6 +126,9 @@ class AdvertController extends AbstractController
                 {
                   throw new NotFoundHttpException('le text descriptif doit contenir au moins 50 caractères');
                 }
+                // c'est elle qui déplace l'image là où on veut les stocker
+                $advert->getImage()->upload();
+
                 $em->persist($advert);
                 $em->flush();
                 $this->addFlash('notice', 'Annonce bien enregistrée.');
@@ -150,6 +153,8 @@ class AdvertController extends AbstractController
               {
                 throw new NotFoundHttpException('le text descriptif doit contenir au moins 50 caractères');
               }
+              // c'est elle qui déplace l'image là où on veut les stocker
+              $advert->getImage()->upload();
               $em->persist($advert);
               $em->flush();
               $this->addFlash('notice', 'modification(s) bien enregistrée(s).');

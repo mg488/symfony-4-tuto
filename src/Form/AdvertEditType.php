@@ -12,7 +12,7 @@ class AdvertEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->remove('date_crea');
+        $builder->remove('date_crea');//on ne veut pas afficher la date de création de l'annonce lors de la modification
     }
 
     public function getParent()

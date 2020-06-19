@@ -36,21 +36,37 @@
                 {{form_widget(form.author,{'attr': {'class': 'form-control'}})}}
             </div>
        </div>
-       {{form_row(form.published)}}
-        <div class='form-group'>
+       {% if form.published is defined %}
+          {{form_row(form.published)}} 
+       {% endif %}
+       {% if form.image.url is defined %}
+           <div class='form-group'>
             {{form_label(form.image.url, "Url",{'label_attr':{'class':'col-sm-3 control-label'}})}}
             {{form_errors(form.image.url)}}
             <div class='col-sm-9'>
                 {{form_widget(form.image.url,{'attr': {'class': 'form-control'}})}}
             </div>
         </div>
-        <div class='form-group'>
-            {{form_label(form.image.alt, "Alt",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-            {{form_errors(form.image.alt)}}
-            <div class='col-sm-9'>
-                {{form_widget(form.image.alt,{'attr': {'class': 'form-control'}})}}
+       {% endif %}
+        {% if  form.image.alt is defined %}
+            <div class='form-group'>
+                {{form_label(form.image.alt, "Alt",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                {{form_errors(form.image.alt)}}
+                <div class='col-sm-9'>
+                    {{form_widget(form.image.alt,{'attr': {'class': 'form-control'}})}}
+                </div>
             </div>
-        </div>
+        {% endif %}
+        {% if form.image.file is defined %}
+            <div class='form-group'>
+                {{form_label(form.image.file, "Ajouter une Image",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                {{form_errors(form.image.file)}}
+                <div class='col-sm-9'>
+                    {{form_widget(form.image.file,{'attr': {'class': 'form-control'}})}}
+                </div>
+            </div>
+        {% endif %}
+        
         <!-- start_category -->
             {{ form_row(form.categories) }}
             <a href="#" id="add_category" class="btn btn-default col-sm-offset-7" disabled="disabled">
@@ -125,4 +141,5 @@
        {#form_rest affiche tous les champs manquants duformulaire défini#}
        {{form_rest(form)}}
        {{form_end(form)}}
+       
     </div>
