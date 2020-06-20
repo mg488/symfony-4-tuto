@@ -3,6 +3,12 @@
 {% block title %}{{ parent()}} - index Advert{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('info') %} {#//L'annonce a bien été supprimée.#}
+ <div class="modal-body">
+    <div class="alert alert-success" role="alert">{{ message }} <br></div>
+  </div>
+{% endfor %}
+
 <!DOCTYPE html>
 <body>
   <p>
@@ -10,7 +16,7 @@
     <ul>
       {% for advert in listAdverts %}
         <li>
-          <a href="{{ path('advert_view', {'id': advert.id}) }}"> {{ advert.title }} id : {{advert.id}}</a>
+          <a href="{{ path('advert_view', {'id': advert.id}) }}"> {{ advert.title }} <small> (réf de l'annonce : {{advert.id}})</small></a>
           par {{ advert.author }}, le {{ advert.datecrea | date('d/m/Y H:i:s') }}
         </li>
       {% else %}

@@ -15,9 +15,13 @@
             {#<!-- asset('images/290px-Koala_climbing_tree.jpg') -->#}
           
           {% if listAdvImgCatApp.image is not null %}
-          <img src="{{ asset(listAdvImgCatApp.image.alt) }}" style="width: 100% ;height: 150px;" alt="{{ listAdvImgCatApp.image.alt }}">
+
+            {#{ dump((listAdvImgCatApp.image.uploadDir ~ '/' ~ listAdvImgCatApp.image.id ~ '.' ~ listAdvImgCatApp.image.url)) }#}
+              {#attention ici url => extension#}
+          <img src="{{ asset(listAdvImgCatApp.image.getimgPath) }}"
+           style="width: 100% ;height: 150px;" alt="{{ listAdvImgCatApp.image.alt }}"/>
           {% endif %}
-        <h2>{{ listAdvImgCatApp.title }}</h2>
+        <h2>{{ listAdvImgCatApp.title }} <small> (réf de l'annonce : {{listAdvImgCatApp.id}}) </small></h2> 
         <i>Par {{ listAdvImgCatApp.author }}, le {{ listAdvImgCatApp.datecrea | date('d/m/Y H:i:s') }}</i>
     </div>
     <div class="well">

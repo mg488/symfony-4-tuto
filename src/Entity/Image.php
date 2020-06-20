@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -104,10 +105,16 @@ class Image
         // Le nom du fichier est son id, on doit juste stocker également son extension
         // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « url »
         $this->url = $this->file->guessExtension();
+        $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+        if(in_array($this->url, $extensions_autorisees)){
         // dd($this->file->guessExtension());
         // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
-        $this->alt = $this->file->getClientOriginalName();
-        
+        $this->alt = pathinfo($this->file->getClientOriginalName(),PATHINFO_FILENAME);//sans l'extension
+        }
+        else
+        {
+            throw new NotFoundHttpException("L'extension ".$this->url." n'est pas autorisée.") ;
+        }
     }
     /**
      * @ORM\PostPersist()
@@ -124,17 +131,19 @@ class Image
         // Si on avait un ancien fichier, on le supprime
         if (null !== $this->tempFilename) 
         {
-        $oldFile = $this->getUploadDir().'/'.$this->id.'.'.$this->tempFilename;
+        $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
             if (file_exists($oldFile)) 
             {
                 unlink($oldFile);
             }
         }
+        // dd($this->getUploadRootDir());
         // On déplace le fichier envoyé dans le répertoire de notre choix
         $this->file->move(
         $this->getUploadRootDir(), // Le répertoire de destination
         $this->id.'.'.$this->url   // Le nom du fichier à créer, ici « id.extension »
         );
+        
     }
 
     /**
@@ -166,7 +175,12 @@ class Image
     protected function getUploadRootDir()
     {
         // On retourne le chemin relatif vers l'image pour notre code PHP
-        return __DIR__.'/../'.$this->getUploadDir();
+        return __DIR__.'/../../public/'.$this->getUploadDir();
+    }
+    //méthode pour l'affichage  dans le template
+    public function getimgPath()
+    {
+      return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
     }
    
     //****************1ere façon d'enregistrer l'image*********************************************** */

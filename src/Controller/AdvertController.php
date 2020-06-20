@@ -112,6 +112,7 @@ class AdvertController extends AbstractController
     public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
             $advert = new Advert;
+
             $form = $this->createForm (AdvertType::class, $advert);
             
             if($request->isMethod('POST'))
@@ -153,9 +154,7 @@ class AdvertController extends AbstractController
               {
                 throw new NotFoundHttpException('le text descriptif doit contenir au moins 50 caractères');
               }
-              // c'est elle qui déplace l'image là où on veut les stocker
-              // $advert->getImage()->upload();
-              $em->persist($advert);
+              $em->persist($advert);//persiste en cascade avec l'annonce
               $em->flush();
               $this->addFlash('notice', 'modification(s) bien enregistrée(s).');
               return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
@@ -165,18 +164,33 @@ class AdvertController extends AbstractController
             'advert' => $advert, 'form'=>$form->createView()
           ));
     }
-    public function delete($id, AdvertRepository $repo,EntityManagerInterface $em) : Response //Optimisé=Okay
+    public function delete($id, AdvertRepository $repo,Request $request,EntityManagerInterface $em) : Response //Optimisé=Okay
     {
+        $advert = new Advert();
         $advert=$repo->find($id);
         if($advert === null)
         {
-          throw new NotFoundHttpException('\'annonce avec l\'id : '.$id .'n\'existe pas');
+          throw new NotFoundHttpException('\'annonce avec l\'id : '.$id .' n\'existe pas');
         }
-        foreach($advert->getCategories() as $category)
-        {
-          $advert->removeCategory($category);
+
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'annonce contre cette faille
+        $form = $this->createFormBuilder()->getForm();
+        
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $em->remove($advert);
+          $em->flush();
+    
+          $this->addFlash('info', "L'annonce a bien été supprimée.");
+    
+          return $this->redirectToRoute('advert_index');
         }
-        $em->flush();
-        return $this->redirectToRoute('advert_index');    
+        
+        return $this->render('advert/deleteAdvert.html.twig', array(
+          'advert' => $advert,
+          'form'   => $form->createView(),
+        ));
+        dd($form);
+          
       }
 }

@@ -31,11 +31,11 @@ class Advert
      */
     private $applications;
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist","remove"})
      */
     private $image;
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"})
      * @ORM\JoinTable(name="advert_category")
      */
     private $categories;
