@@ -15,7 +15,7 @@
             {#<!-- asset('images/290px-Koala_climbing_tree.jpg') -->#}
           
           {% if listAdvImgCatApp.image is not null %}
-          <img src="{{ asset(listAdvImgCatApp.image.url) }}" style="width: 100% ;height: 150px;" alt="{{ listAdvImgCatApp.image.alt }}">
+          <img src="{{ asset(listAdvImgCatApp.image.alt) }}" style="width: 100% ;height: 150px;" alt="{{ listAdvImgCatApp.image.alt }}">
           {% endif %}
         <h2>{{ listAdvImgCatApp.title }}</h2>
         <i>Par {{ listAdvImgCatApp.author }}, le {{ listAdvImgCatApp.datecrea | date('d/m/Y H:i:s') }}</i>

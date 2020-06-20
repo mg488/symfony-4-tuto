@@ -35,7 +35,7 @@ class Advert
      */
     private $image;
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist","remove"})
      * @ORM\JoinTable(name="advert_category")
      */
     private $categories;
