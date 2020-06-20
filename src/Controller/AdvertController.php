@@ -8,7 +8,9 @@ use App\Entity\Category;
 use App\Form\AdvertType;
 use App\Entity\AdvertSkill;
 use App\Entity\Application;
+use App\Entity\ContactByMail;
 use App\Form\AdvertEditType;
+use App\Form\ContactByMailType;
 use App\Service\AntispamService;
 use Symfony\Component\Mime\Email;
 use App\Repository\ImageRepository;
@@ -38,20 +40,20 @@ class AdvertController extends AbstractController
     
     // public function sendEmail(MailerInterface $mailer){
     //     $happyMessage = '1er email send of gm in symfony';
-
     //     $email = (new Email())
     //         ->from('contactvillgedenguith@gmail.com')
     //         ->to('contactvillgedenguith@gmail.com')
     //         ->subject('Site update just happened!')
     //         ->text('Someone just updated the site. We told them: '.$happyMessage);
-
-    //     $mailer->send($email);
+    //           $mailer->send($email);
     // }
     public function contactAction(){
-        $this->addFlash('info','La page decontact n\'est pas encore disponible');
+        // $this->addFlash('info','La page decontact n\'est pas encore disponible');
         
-        $this->addFlash('info','elle sera bientôt mise en place');
-        return $this->render('advert/contact.html.twig');
+        // $this->addFlash('info','elle sera bientôt mise en place');
+        $contactByMail = new ContactByMail();
+        $form = $this->createForm(ContactByMailType::class,$contactByMail) ;
+        return $this->render('advert/contact.html.twig', array('form'=>$form->createView()));
         // return $this->redirectToRoute('advert_contact');
 
     }
@@ -180,7 +182,11 @@ class AdvertController extends AbstractController
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
           $em->remove($advert);
           $em->flush();
-    
+          //******************au cas où on voulais supprimer les catégories ratachées à l'annonce */
+          // foreach($advert->getCategories() as $category)
+          // {
+          //   $advert->removeCategory($category);
+          // }
           $this->addFlash('info', "L'annonce a bien été supprimée.");
     
           return $this->redirectToRoute('advert_index');
