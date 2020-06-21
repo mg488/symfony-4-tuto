@@ -19,7 +19,8 @@ class ContactByMailType extends AbstractType
             ->add('email')
             // ->add('save', SubmitType::class, ['label'=>'Enregistrer',
             // 'attr'=>['class'=>'col-sm-2 btn btn-success pull-right']])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class,['label'=>'Enregistrer',
+            'attr'=>['class'=>'col-sm-2 btn btn-success pull-right']])
         ;
     }
 

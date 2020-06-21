@@ -47,7 +47,7 @@ class PostController extends AbstractController
         $em->flush(); // C'est à ce moment qu'est généré le slug
 
         return new Response('Slug généré : '.$advert->getSlug());
-        // Affiche « Slug généré : recherche-developpeur »
+        // Affiche « Slug généré : Recherche-Manager »
         // $listAdvertCategoriesApplications = $repoAdvert->getLisAdvertCategoryApplications(12);
         // dd($listAdvertCategoriesApplications);
 
