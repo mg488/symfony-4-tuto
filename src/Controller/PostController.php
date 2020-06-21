@@ -44,7 +44,7 @@ class PostController extends AbstractController
         $advert->setContent('Nous recherchons un développeur CMS débutant sur Lyon. bien paye avec tous les avantages qu\'il faut');
 
         $em->persist($advert);
-        $em->flush(); // C'est à ce moment qu'est généré le slug
+        // $em->flush(); // C'est à ce moment qu'est généré le slug
 
         return new Response('Slug généré : '.$advert->getSlug());
         // Affiche « Slug généré : Recherche-Manager »

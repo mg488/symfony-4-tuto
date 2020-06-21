@@ -15,6 +15,7 @@ class ContactByMailType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
+            ->add('objet')
             ->add('content')
             ->add('email')
             // ->add('save', SubmitType::class, ['label'=>'Enregistrer',

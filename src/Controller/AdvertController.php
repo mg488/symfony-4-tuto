@@ -20,6 +20,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AdvertSkillRepository;
 use App\Repository\ApplicationRepository;
+use App\Service\sendMailService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,31 +38,21 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends AbstractController
 {
-    
-    // public function sendEmail(Request $request){
-       
-    //   return new Response('dans la gestion de emails');
-    // }
-    public function contactAction(Request $request)
-    {
-        // $this->addFlash('info','La page decontact n\'est pas encore disponible');
-        
-        // $this->addFlash('info','elle sera bientôt mise en place');
+    public function contactAction(Request $request, sendMailService $sendMailService)
+    { //envoie de mail bien géré
         $contactByMail = new ContactByMail();
         $form = $this->createForm(ContactByMailType::class,$contactByMail) ;
 
         if($request->isMethod('POST')){
           if($form->handleRequest($request)->isValid())
           {
+            $this->addflash('info', 'message envoyé avec succès !');
             $data = $request->request->get('contact_by_mail') ;
-            dd($data['email']);
-            return new Response('dans la gestion de emails contactAction ivalid');
+            $sendMailService->sendNewMail($data);
+            return $this->redirectToRoute('advert_contact',array('form'=>$form->createView()));
           }
         }
-
         return $this->render('advert/contact.html.twig', array('form'=>$form->createView()));
-        // return $this->redirectToRoute('advert_contact');
-
     }
     public function menuAction(AdvertRepository $repoAdvert ) : Response //Optimisé=Okay
     {

@@ -43,6 +43,4 @@ advert_contact:
     path: /advert/contact
     controller: App\Controller\AdvertController::contactAction
 
-advert_sendMail:
-    path: /advert/sendmail
-    controller: App\Controller\AdvertController::sendEmail
+

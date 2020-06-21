@@ -2,7 +2,7 @@
 namespace App\Service;
 
 
-    class sendMailService{
+class sendMailService{
         /**
          * @var \Swift_Mailer
          */
@@ -11,17 +11,16 @@ namespace App\Service;
         {
             $this->mailer = $mailer;
         }
-        public function sendNewNotification(String $contentMessage)
+        public function sendNewMail(array $tabContact)
         {
-            $message = new \Swift_Message(
-                $contentMessage
-          );
-      
+          $message = (new \Swift_Message());
           $message
-          
-            // ->addTo($application->getAdvert()->getAuthor()) // Ici bien sûr il faudrait un attribut "email", j'utilise "author" à la place
-            ->addFrom('contactvillagedenguith@gmail.com')
+                ->setSubject($tabContact['objet'])
+                ->setBody($tabContact['content'].' Par : '.$tabContact['firstName'].'-'. $tabContact['lastName'].' : '.$tabContact['email'],'text/html')
+                ->addTo('contactvillagedenguith@gmail.com')
+                ->setFrom(['mg@nguith.com'=> $tabContact['firstName'].'-'. $tabContact['lastName']])
           ;
+        
       
           $this->mailer->send($message);
         }

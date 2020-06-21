@@ -36,6 +36,11 @@ class ContactByMail
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $objet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class ContactByMail
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getObjet(): ?string
+    {
+        return $this->objet;
+    }
+
+    public function setObjet(string $objet): self
+    {
+        $this->objet = $objet;
 
         return $this;
     }
