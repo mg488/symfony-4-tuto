@@ -38,15 +38,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AdvertController extends AbstractController
 {
     
-    // public function sendEmail(MailerInterface $mailer){
-    //     $happyMessage = '1er email send of gm in symfony';
-    //     $email = (new Email())
-    //         ->from('contactvillgedenguith@gmail.com')
-    //         ->to('contactvillgedenguith@gmail.com')
-    //         ->subject('Site update just happened!')
-    //         ->text('Someone just updated the site. We told them: '.$happyMessage);
-    //           $mailer->send($email);
-    // }
+    public function sendEmail(){
+       
+      return new Response('dans la gestion de emails');
+    }
     public function contactAction(){
         // $this->addFlash('info','La page decontact n\'est pas encore disponible');
         
