@@ -7,9 +7,9 @@
         </div>
     {% endfor %#}
     <h1>Formulaire de contact</h1>
-    <div class="well">
+    <div class="well form-horizontal">
         
-        {{form_start(form,{'attr': {'class': 'form-horizontal'}})}} 
+        {{form_start(form,{'action': path('advert_contact'), 'method': 'POST'})}} 
 
         {{form_errors(form)}}
             <div class='form-group'>
