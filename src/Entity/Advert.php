@@ -78,6 +78,7 @@ class Advert
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=50, minMessage = "le contenu doit contenir au moins {{ limit }} caractères.")
      */
     private $content;
 
