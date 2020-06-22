@@ -89,7 +89,7 @@ class Image
             $this->alt = null;
         }
     }
-    //****************2ere façon d'enregistrer l'image*********************************************** */
+    //****************2ème façon et bonne façon d'enregistrer l'image*********************************************** */
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -106,10 +106,11 @@ class Image
         // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « url »
         $this->url = $this->file->guessExtension();
         $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
-        if(in_array($this->url, $extensions_autorisees)){
-        // dd($this->file->guessExtension());
-        // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
-        $this->alt = pathinfo($this->file->getClientOriginalName(),PATHINFO_FILENAME);//sans l'extension
+
+        if(in_array($this->url, $extensions_autorisees))
+        {
+            // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
+            $this->alt = pathinfo($this->file->getClientOriginalName(),PATHINFO_FILENAME);//sans l'extension
         }
         else
         {
@@ -122,22 +123,21 @@ class Image
      */
     public function upload()
     {
-       
         // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
-        if (null === $this->file) {
-        return;
+        if (null === $this->file) 
+        {
+            return;
         }
 
         // Si on avait un ancien fichier, on le supprime
         if (null !== $this->tempFilename) 
         {
-        $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
+            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
             if (file_exists($oldFile)) 
             {
                 unlink($oldFile);
             }
         }
-        // dd($this->getUploadRootDir());
         // On déplace le fichier envoyé dans le répertoire de notre choix
         $this->file->move(
         $this->getUploadRootDir(), // Le répertoire de destination

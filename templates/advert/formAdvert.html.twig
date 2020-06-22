@@ -16,9 +16,16 @@
            {#Génération du label#}
            {{form_label(form.title, "Titre de l'annonce",{'label_attr': {'class':'col-sm-3 control-label'}})}}
            {#affichage des erreurs pour ce champs#}
-           {{form_errors(form.title)}}
+           
+            <div class="form-error">
+                {{ form_errors(form.title) }}
+            </div>
            {#Génération de l'input#}
-           <div class='col-sm-9'>
+           {% if  form.title is defined %}
+               <div class='col-sm-9 col-sm-offset-3 alert alert-danger'>
+           {% else %}
+               <div class='col-sm-9'>
+           {% endif %}
                {{form_widget(form.title,{'attr':{'class': 'form-control'}})}}
            </div>
        </div>

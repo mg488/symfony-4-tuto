@@ -111,7 +111,7 @@ class AdvertController extends AbstractController
     public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
             $advert = new Advert;
-
+            $advert->setPublished(false); //pré-remplir le checkbox à false
             $form = $this->createForm (AdvertType::class, $advert);
             
             if($request->isMethod('POST'))

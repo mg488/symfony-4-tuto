@@ -33,7 +33,7 @@ class AdvertType extends AbstractType
             //           'attr' => ['class' => 'col-sm-3']))
                       ->add('save',      SubmitType::class)
             ->add('content', TextareaType::class)
-            ->add('image', ImageType::class) //******Image
+            ->add('image', ImageType::class, array('required'=>false)) //******Image
             //*******1ere façon de faire (CollectionType): *********possibilité d'ajouter et supprimer catégorie (button)***********************************/
             // ->add('categories', CollectionType::class, array( //CollectionType =>liste de n'importe quoi
             //     'entry_type'   =>CategoryType::class,  // enty_type=> le type de liste pour remplir la CollectionType
@@ -61,29 +61,32 @@ class AdvertType extends AbstractType
                 ))//************************Category
             ->add('save', SubmitType::class, ['label'=>'Enregistrer',
             'attr'=>['class'=>'col-sm-2 btn btn-success pull-right']])
-        ;
-        /********Start **gestion des événements******************************************************************************** */
-        // On ajoute une fonction qui va écouter un évènement
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,    // 1er argument : L'évènement qui nous intéresse : ici, PRE_SET_DATA
-            function(FormEvent $event) { // 2e argument : La fonction à exécuter lorsque l'évènement est déclenché
-            // On récupère notre objet Advert sous-jacent
-            $advert = $event->getData();
-            // Cette condition est importante
-            if (null === $advert) {
-                return; // On sort de la fonction sans rien faire lorsque $advert vaut null
-            }
-            // Si l'annonce n'est pas publiée, ou si elle n'existe pas encore en base (id est null)
-            if (!$advert->getPublished() || null === $advert->getId()) {
-                // Alors on ajoute le champ published
-                $event->getForm()->add('published', CheckboxType::class, array('required'=>false,
-                          'attr' => ['class' => 'col-sm-3']));
-            } 
-            else 
-            {
-                // Sinon, on le supprime
-                $event->getForm()->remove('published');
-            }});
+            ;
+            /********Start **gestion des événements******************************************************************************** */
+            // On ajoute une fonction qui va écouter un évènement : 
+            //empêcher de dépublier une annonce une fois qu'elle est publiée.
+            //1 - Si l'annonce n'est pas encore publiée, on peut modifier sa valeur de publication lorsqu'on modifie l'annonce;
+            //2 - Si l'annonce est déjà publiée, on ne peut plus modifier sa valeur de publication lorsqu'on modifie l'annonce.
+            $builder->addEventListener(
+                FormEvents::PRE_SET_DATA,    // 1er argument : L'évènement qui nous intéresse : ici, PRE_SET_DATA
+                function(FormEvent $event) { // 2e argument : La fonction à exécuter lorsque l'évènement est déclenché
+                // On récupère notre objet Advert sous-jacent
+                $advert = $event->getData();
+                // Cette condition est importante
+                if (null === $advert) {
+                    return; // On sort de la fonction sans rien faire lorsque $advert vaut null
+                }
+                // Si l'annonce n'est pas publiée, ou si elle n'existe pas encore en base (id est null)
+                if (!$advert->getPublished() || null === $advert->getId()) {
+                    // Alors on ajoute le champ published
+                    $event->getForm()->add('published', CheckboxType::class, array('required'=>false,
+                            'attr' => ['class' => 'col-sm-3']));
+                } 
+                else 
+                {
+                    // Sinon, on le supprime
+                    $event->getForm()->remove('published');
+                }});
         }
         //**********End **gestion des événements************************************************************************************* */
         public function configureOptions(OptionsResolver $resolver)

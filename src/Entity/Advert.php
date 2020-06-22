@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Entity\Image;
 use App\Entity\Category;
 use App\Entity\Application;
+// use Webmozart\Assert\Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdvertRepository")
@@ -49,6 +51,7 @@ class Advert
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, minMessage = "le titre doit contenir au moins {{ limit }} caractères.")
      */
     private $title;
 
