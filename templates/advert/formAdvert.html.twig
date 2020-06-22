@@ -31,15 +31,8 @@
        </div>
        <div class='form-group'>
            {{form_label(form.content, "Contenu de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-           <div class="form-error">
-                {{form_errors(form.content)}}
-            </div>
-            {% if  form.content is defined %}
-               <div class='col-sm-9 col-sm-offset-3'>
-           {% else %}
-                <div class='col-sm-9'>
-            {% endif %}
-           
+           {{form_errors(form.content)}}
+           <div class='col-sm-9'>
                 {{form_widget(form.content,{'attr': {'class': 'form-control'}})}}
             </div>
        </div>
