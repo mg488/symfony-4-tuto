@@ -34,6 +34,7 @@ class Advert
     private $applications;
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist","remove"})
+     * @Assert\Valid()
      */
     private $image;
     /**
@@ -51,12 +52,13 @@ class Advert
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, minMessage = "le titre doit contenir au moins {{ limit }} caractères.")
+     * @Assert\Length(min=10, minMessage = "Le titre doit contenir au moins {{ limit }} caractères.")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, minMessage = "Le nom de l'auteur doit contenir au moins {{ limit }} caractères.")
      */
     private $author;
 
@@ -77,6 +79,7 @@ class Advert
     private $published = true;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $content;

@@ -4,7 +4,9 @@
        {{form_start(form,{'attr': {'class': 'form-horizontal'}})}} 
 
        {# les erreurs générales du formulaire #}
-       {{form_errors(form)}}
+        <div class="my-custom-class-for-errors">
+             {{ form_errors(form) }}
+        </div>
 
        {#Génération du label + error + widget pour un champ#}
        {% if form.date_crea is defined %}
@@ -31,15 +33,26 @@
        </div>
        <div class='form-group'>
            {{form_label(form.content, "Contenu de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-           {{form_errors(form.content)}}
+           <div class="form-error">
+            {{form_errors(form.content)}}
+            </div>
            <div class='col-sm-9'>
                 {{form_widget(form.content,{'attr': {'class': 'form-control'}})}}
             </div>
        </div>
        <div class='form-group'>
            {{form_label(form.author, "Auteur de l'annonce",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-           {{form_errors(form.author)}}
-           <div class='col-sm-9'>
+
+            <div class="form-error">
+                {# {{ dump(form) }} #}
+                {{ form_errors(form.author,{'attr':{'class':'text-danger'}}) }}
+            </div>
+
+            {% if  form.author is defined %}
+                <div class='col-sm-9 col-sm-offset-3'>
+            {% else %}
+                <div class='col-sm-9'>
+            {% endif %}
                 {{form_widget(form.author,{'attr': {'class': 'form-control'}})}}
             </div>
        </div>
@@ -148,5 +161,5 @@
        {#form_rest affiche tous les champs manquants duformulaire défini#}
        {{form_rest(form)}}
        {{form_end(form)}}
-       
+
     </div>
