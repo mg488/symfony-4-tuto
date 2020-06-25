@@ -2,39 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
 use App\Entity\Advert;
-use App\Entity\Category;
 use App\Form\AdvertType;
-use App\Entity\AdvertSkill;
-use App\Entity\Application;
-use App\Entity\ContactByMail;
 use App\Form\AdvertEditType;
+use App\Entity\ContactByMail;
 use App\Form\ContactByMailType;
 use App\Service\AntispamService;
-use Symfony\Component\Mime\Email;
+use App\Service\sendMailService;
 use App\Repository\ImageRepository;
-use App\Repository\SkillRepository;
 use App\Repository\AdvertRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AdvertSkillRepository;
-use App\Repository\ApplicationRepository;
-use App\Service\sendMailService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AdvertController extends AbstractController
 {
@@ -107,9 +91,18 @@ class AdvertController extends AbstractController
       ));
     }
 
-    // /*********************add********************************************/ //
+  // /*********************add********************************************/ //
+  /**
+   * @Security("has_role('ROLE_AUTEUR')")
+   */
     public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
     {
+            //  // On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR
+            // if (!$this->get('security.authorization_checker')->isGranted('ROLE_AUTEUR')) {
+            //   // Sinon on déclenche une exception « Accès interdit »
+            //   throw new AccessDeniedException('Accès limité aux auteurs.');
+            // }
+      
             $advert = new Advert;
             $advert->setPublished(false); //pré-remplir le checkbox à false
             $form = $this->createForm (AdvertType::class, $advert);

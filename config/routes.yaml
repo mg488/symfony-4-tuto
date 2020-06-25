@@ -54,4 +54,6 @@ login_check:
 logout:
     path: /logout
 
-
+admin_index:
+    path: /admin
+    controller: App\Controller\AdminController::indexAdmin

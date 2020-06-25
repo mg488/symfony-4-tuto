@@ -12,7 +12,8 @@ class SecurityController extends AbstractController
     public function loginAction(Request $request,AuthenticationUtils $authenticationUtils)
     {
       // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-      if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+      if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) 
+      {
         return $this->redirectToRoute('advert_index');
         // return $this->render('advert/indexAdvert.html.twig');
       }
