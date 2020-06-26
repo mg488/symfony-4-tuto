@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent()}} - contact {% endblock %}
 {% block body %}
-    <h1>Formulaire de contact</h1>
+    <h1 class="text-center">Formulaire de contact</h1>
     {% for message in app.flashes('info') %}
         <div class="modal-body">
             <div class="alert alert-success" role="alert">{{ message }} <br></div>

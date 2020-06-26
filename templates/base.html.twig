@@ -35,6 +35,9 @@
       <div id="menu" class="col-md-3">
         <h3>Les annonces</h3>
           <ul class="nav nav-pills nav-stacked">
+               {% if is_granted('ROLE_ADMIN')%}
+                <li><a href="{{path('admin_index')}}">Page des admins </a></li><br>
+              {% endif %}
                 {# <li><a href="{{path('pathFuncIcidonnelePath')}}" >Page de test</a></li>  #}
                 <li><a href="{{path('advert_index')}}">Liste des annonces</a></li>
               <!-- <li><a href="{#{path('index')}#}" >Liste de posts (Tuto youtube)</a></li> -->

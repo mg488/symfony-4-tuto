@@ -18,6 +18,6 @@ class LoadSkill extends Fixture
             $manager->persist($skill);
         }
 
-        $manager->flush();
+        // $manager->flush();
     }
 }
