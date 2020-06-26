@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ parent()}} - list admin {% endblock %}
+
+{% block body %}
+    <h1>Liste des admins</h1> 
+        <div class="col-sm-12">
+            {% if  app.user.username is defined %}
+            <small>Bonjour : {{ app.user.username }} <br>
+                    Roles :
+                {% for i in 0..app.user.roles | length - 1 %}
+                    {{app.user.roles[i]}} {% if not loop.last %} , {% endif %}
+                {% endfor %}
+            </small>
+            {% endif %}
+      </div>
+        <table class="table  table table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">cpt</th>
+            <th scope="col">Username</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Date de création</th>
+            <th scope="col">Date de mis à jour</th>
+            <th scope="col">Édit</th>
+            <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+       {% for listUser in  listUsers %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <th scope="row">{{listUser.username}}</th>
+                <td>
+                    {% for i in 0..listUser.roles | length - 1 %}
+                        {{listUser.roles[i]}} {% if not loop.last %} , {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{listUser.dateCrea | date('d/m/Y H:i:s')}}</td>
+                <td>{{listUser.dateMaj | date('d/m/Y H:i:s')}}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td><a class="btn btn-success" href="#" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
+                {% elseif is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a class="btn btn-danger" href="{{path('admin_delete',{'id': listUser.id})}}" role="button">
+                    <i class="glyphicon glyphicon-trash" ></i></a></td>
+                {% endif %}
+                
+            </tr>
+         {% endfor %}
+       </tbody>
+    </table>
+{% endblock %}
+
+
+    
+  
+   
+ 

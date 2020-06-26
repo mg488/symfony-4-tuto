@@ -54,6 +54,14 @@ login_check:
 logout:
     path: /logout
 
-admin_index:
+admin_create:
     path: /admin
-    controller: App\Controller\AdminController::indexAdmin
+    controller: App\Controller\AdminController::createAdmin
+admin_list:
+    path: /admin/list
+    controller: App\Controller\AdminController::listAdmin
+admin_delete:
+    path: /admin/delete/{id}
+    controller: App\Controller\AdminController::deleteAdmin
+    requirements:
+        id: '\d+'

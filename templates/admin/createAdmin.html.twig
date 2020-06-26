@@ -3,7 +3,12 @@
 
 {% block body %}
     <h1 class="text-center">Gestion des utilisateurs</h1>
-    <div class="well form-horizontal col-sm-7 col-sm-offset-2">
+     {% for message in app.flashes('notice') %} 
+        <div class="modal-body">
+            <div class="alert alert-success" role="alert">{{ message }} <br></div>
+        </div>
+    {% endfor %}
+    <div class="well form-horizontal col-sm-10 col-sm-offset-2">
         {{form_start(form,{'attr': {'class': 'form-horizontal'}})}} 
 
         <div class="my-custom-class-for-errors">

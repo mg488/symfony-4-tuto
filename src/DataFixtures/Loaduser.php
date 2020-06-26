@@ -30,10 +30,10 @@ class Loaduser extends Fixture
         //     $manager->persist($user);
         // }
         $user = new User;
-        $user->setUsername('mnd');
-        $user->setPassword('mndpass');
+        $user->setUsername('guinz');
+        $user->setPassword('guinzpass');
         $user->setSalt('');
-        $user->setRoles(array('ROLE_SUPER_ADMIN'));
+        $user->setRoles(array('ROLE_ADMIN'));
         $manager->persist($user);
         // $manager->flush();
     }
