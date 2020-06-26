@@ -15,19 +15,19 @@ security:
                 users:
                     user: { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-                    mnd: { password: mndpass, roles: [ 'ROLE_SUPER_ADMIN' ] }
+                    mnd: { password: mndpass, roles: [ 'ROLE_AUTEUR' ] }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
          # On crée un pare-feu uniquement pour le formulaire
-        main_login:
+        #1main_login:
             # Cette expression régulière permet de prendre /login (mais pas /login_check !)
-            pattern:   ^/login$
-            anonymous: true # On autorise alors les anonymes sur ce pare-feu
+            #2pattern:   ^/login$
+            #3anonymous: true # On autorise alors les anonymes sur ce pare-feu
         main:
             pattern:  ^/
-            anonymous: false
+            anonymous: true #flase si t'active 1,2,3
             form_login:
                 login_path: login
                 check_path: login_check

@@ -35,19 +35,21 @@
       <div id="menu" class="col-md-3">
         <h3>Les annonces</h3>
           <ul class="nav nav-pills nav-stacked">
+                {# <li><a href="{{path('pathFuncIcidonnelePath')}}" >Page de test</a></li>  #}
+                <li><a href="{{path('advert_index')}}">Liste des annonces</a></li>
               <!-- <li><a href="{#{path('index')}#}" >Liste de posts (Tuto youtube)</a></li> -->
               
-              <li><a href="{{path('pathFuncIcidonnelePath')}}" >Page de test</a></li>
-              
-              <li><a href="{{path('advert_index')}}">Liste des annonces</a></li>
-
-              {% if is_granted('ROLE_AUTEUR') %}
-                <li><a href="{{path('advert_add')}}" >Ajouter une annonce</a></li>
+              {% if app.user == null %}
+                <li><a href="{{path('login')}}">Page de Connexion </a></li><br>
+              {% else %}
+                <li><a href="{{path('advert_contact')}}" >Nous contacter</a></i>
+                {% if is_granted('ROLE_AUTEUR') %}
+                  <li><a href="{{path('advert_add')}}">Ajouter une annonce</a></li><br>
+                {% endif %}
+                <a class="btn btn-danger" href="{{path('logout')}}" role="button">Deconnexion
+                <i class="glyphicon glyphicon-off" ></i></a>
               {% endif %}
-
-              <li><a href="{{path('advert_contact')}}" >Nous contacter</a></li></br>
-              <li><a href="{{path('login')}}" >Page de  Connexion </a></li>
-              <li><a href="{{path('logout')}}" >Page de Deconnexion</a></li>
+              
           </ul>
           </ul>
 
@@ -58,8 +60,7 @@
                 menuAction est disponible).
             =>ce qui permet de pouvoir passer l'url href="{"{ path('advert_view', {'id': advert.id}) }#}"
               dans le template menu-->
-          {{ render(controller("App\\Controller\\AdvertController::menuAction", {'limit': 3})) }}
-
+              {{ render(controller("App\\Controller\\AdvertController::menuAction", {'limit': 3})) }}
       </div>
       <div id="content" class="col-md-9">
         {% block body %}
