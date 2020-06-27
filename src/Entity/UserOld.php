@@ -6,11 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserOldRepository")
  * @ORM\Table(name="Tabuser")
  * @ORM\HasLifecycleCallbacks()
  */
-class User implements UserInterface
+class UserOld implements UserInterface
 {
     /**
      * @ORM\Id()

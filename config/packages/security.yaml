@@ -2,7 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         # Symfony\Component\Security\Core\User\User: plaintext
-        App\Entity\User: plaintext
+        App\Entity\UserOld: plaintext
     role_hierarchy:
         #ROLE_ADMIN:       ROLE_USER
         #ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
@@ -18,7 +18,7 @@ security:
         #             admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         #             mnd: { password: mndpass, roles: [ 'ROLE_AUTEUR' ] }
         main:
-            entity: {class: App\Entity\User , property: username}
+            entity: {class: App\Entity\UserOld , property: username}
 
     firewalls:
         dev:
