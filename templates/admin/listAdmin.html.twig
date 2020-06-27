@@ -5,13 +5,18 @@
     <h1>Liste des admins</h1> 
         <div class="col-sm-12">
             {% if  app.user.username is defined %}
-            <small>Bonjour : {{ app.user.username }} <br>
-                    Roles :
-                {% for i in 0..app.user.roles | length - 1 %}
-                    {{app.user.roles[i]}} {% if not loop.last %} , {% endif %}
-                {% endfor %}
-            </small>
+                <small>Bonjour : {{ app.user.username }} <br>
+                        Roles :
+                    {% for i in 0..app.user.roles | length - 1 %}
+                        {{app.user.roles[i]}} {% if not loop.last %} , {% endif %}
+                    {% endfor %}
+                </small>
             {% endif %}
+            {% for message in app.flashes('notice') %} 
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert">{{ message }} <br></div>
+                </div>
+            {% endfor %}
       </div>
         <table class="table  table table-bordered">
         <thead>
@@ -38,8 +43,10 @@
                 <td>{{listUser.dateCrea | date('d/m/Y H:i:s')}}</td>
                 <td>{{listUser.dateMaj | date('d/m/Y H:i:s')}}</td>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <td><a class="btn btn-success" href="#" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
-                {% elseif is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a class="btn btn-success" href="{{path('admin_edit',{'id': listUser.id})}}" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
+                {% endif %}
+                
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <td><a class="btn btn-danger" href="{{path('admin_delete',{'id': listUser.id})}}" role="button">
                     <i class="glyphicon glyphicon-trash" ></i></a></td>
                 {% endif %}
@@ -49,9 +56,3 @@
        </tbody>
     </table>
 {% endblock %}
-
-
-    
-  
-   
- 

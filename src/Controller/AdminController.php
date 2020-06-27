@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
@@ -58,11 +59,10 @@ class AdminController extends AbstractController
            return $this->render('admin/listAdmin.html.twig',array('listUsers'=>$listUsers));
        }
        #***************Supprimer User*********
-       public function deleteAdmin($id,UserRepository $userRespository, Request $request, EntityManagerInterface $em)
+       public function deleteAdmin($id, UserRepository $userRespository, Request $request, EntityManagerInterface $em)
        {
            $user = new User();
            $user = $userRespository->find($id);
-        //    dd($request);
            if($user === null)
            {
              throw new NotFoundHttpException('\'utilisateur avec l\'id : '.$id .' n\'existe pas');
@@ -77,4 +77,29 @@ class AdminController extends AbstractController
             $listUsers = $userRespository->findAll();
             return $this->redirectToRoute('admin_list',array('listUsers'=>$listUsers));
        }
+       public function editAdmin($id, Request $request, UserRepository $userRespository, EntityManagerInterface $em)
+       {
+           $user = new User();
+           $user = $userRespository->find($id);
+           if($user === null)
+           {
+             throw new NotFoundHttpException('\'utilisateur avec l\'id : '.$id .' n\'existe pas');
+           }
+           $form = $this->createForm(UserEditType::class,$user);
+            if($request->isMethod('POST'))
+            {
+                if($form->handleRequest($request)->isValid())
+                {
+                    $em->persist($user);
+                    $em->flush();
+                    $this->addFlash('notice', 'modification(s) bien enregistrée(s).');
+                    $listUsers = $userRespository->findAll();
+                    return $this->render('admin/listAdmin.html.twig',array('listUsers'=>$listUsers));  
+                }
+            }
+            return $this->render('admin/editAdmin.html.twig',array(
+                'advert' => $user, 'form'=>$form->createView()
+              ));
+       }
+
 }

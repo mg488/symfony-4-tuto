@@ -65,3 +65,12 @@ admin_delete:
     controller: App\Controller\AdminController::deleteAdmin
     requirements:
         id: '\d+'
+admin_edit:
+    path: /admin/edit/{id}
+    controller: App\Controller\AdminController::editAdmin
+    requirements:
+        id: '\d+'
+user_create:
+    path: /user
+    controller: App\Controller\UserController::createUser
+  
