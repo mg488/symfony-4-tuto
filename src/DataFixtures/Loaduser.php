@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
+use App\Entity\UserOld;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -29,12 +29,12 @@ class Loaduser extends Fixture
         //     // On le persiste
         //     $manager->persist($user);
         // }
-        $user = new User;
-        $user->setUsername('guinz');
-        $user->setPassword('guinzpass');
-        $user->setSalt('');
-        $user->setRoles(array('ROLE_ADMIN'));
-        $manager->persist($user);
+        // $user = new UserOld ;
+        // $user->setUsername('guinz');
+        // $user->setPassword('guinzpass');
+        // $user->setSalt('');
+        // $user->setRoles(array('ROLE_ADMIN'));
+        // $manager->persist($user);
         // $manager->flush();
     }
 }

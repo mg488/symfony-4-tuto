@@ -1,10 +1,12 @@
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 index:
-   path: /
+   path: /post
    controller: App\Controller\PostController::index
 pathFuncIcidonnelePath:
    path: /test
    controller: App\Controller\PostController::test
-
+   #login
 advert_index:
     path: /advert/{page} #parth('advert_index') =>index-advert
     controller: App\Controller\AdvertController::index

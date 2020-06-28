@@ -28,7 +28,7 @@ class AdminController extends AbstractController
            if($form->handleRequest($request)->isValid())
            {
             try {
-                $user->setSalt('');
+                // $user->setSalt('');
                 $em->persist($user);
                 $em->flush();
                 $listUsers = $userRespository->findAll();
