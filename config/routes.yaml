@@ -6,7 +6,7 @@ index:
 pathFuncIcidonnelePath:
    path: /test
    controller: App\Controller\PostController::test
-   #login
+
 advert_index:
     path: /advert/{page} #parth('advert_index') =>index-advert
     controller: App\Controller\AdvertController::index
@@ -45,33 +45,26 @@ advert_contact:
     path: /advert/contact
     controller: App\Controller\AdvertController::contactAction
 
-# login:
-#     path: /login
-    # target: /advert
-# register:
-#     path: /register
-# login_check:
-    # path: /fos_user_security_check
-    # target: /advert
-# logout:
-#     path: /logout
-
 admin_create:
     path: /admin
     controller: App\Controller\AdminController::createAdmin
+
 admin_list:
     path: /admin/list
     controller: App\Controller\AdminController::listAdmin
+
 admin_delete:
     path: /admin/delete/{id}
     controller: App\Controller\AdminController::deleteAdmin
     requirements:
         id: '\d+'
+
 admin_edit:
     path: /admin/edit/{id}
     controller: App\Controller\AdminController::editAdmin
     requirements:
         id: '\d+'
+        
 user_create:
     path: /user
     controller: App\Controller\UserController::createUser
