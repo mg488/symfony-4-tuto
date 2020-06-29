@@ -41,17 +41,17 @@
               {% endif %}
                 {# <li><a href="{{path('pathFuncIcidonnelePath')}}" >Page de test</a></li>  #}
                 <li><a href="{{path('advert_index')}}">Liste des annonces</a></li>
-                <li><a href="{{path('user_create')}}">Créer un compte</a></li>
+                <li><a href="{{path('fos_user_registration_register')}}">Créer mon compte</a></li>
               <!-- <li><a href="{#{path('index')}#}" >Liste de posts (Tuto youtube)</a></li> -->
               
               {% if app.user == null %}
-                <li><a href="{{path('login')}}">Page de Connexion </a></li><br>
+                <li><a href="{{path('fos_user_security_login')}}">Page de Connexion </a></li><br>
               {% else %}
                 <li><a href="{{path('advert_contact')}}" >Nous contacter</a></i>
                 {% if is_granted('ROLE_AUTEUR') %}
                   <li><a href="{{path('advert_add')}}">Ajouter une annonce</a></li><br>
                 {% endif %}
-                <a class="btn btn-danger" href="{{path('logout')}}" role="button">Deconnexion
+                <a class="btn btn-danger" href="{{path('fos_user_security_logout')}}" role="button">Deconnexion
                 <i class="glyphicon glyphicon-off" ></i></a>
               {% endif %}
               

@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Entity\User: plaintext
+        App\Entity\User: bcrypt
         FOS\UserBundle\Model\UserInterface: bcrypt
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_AUTEUR, ROLE_MODERATEUR]
@@ -20,8 +20,19 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-            logout:       true
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check 
+                always_use_default_target_path: true
+                default_target_path: /advert
+            logout:       
+                path: fos_user_security_logout
+                target: /advert 
             anonymous:    true
+            # remember_me:
+                # key:       "kernel.secret"
+                # lifetime: 604800 # 1 week in seconds
+                # path:     /
+            
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -45,16 +45,16 @@ advert_contact:
     path: /advert/contact
     controller: App\Controller\AdvertController::contactAction
 
-login:
-    path: /login
-    defaults:
-        _controller: App\Controller\SecurityController::loginAction
-
-login_check:
-    path: /login_check
-
-logout:
-    path: /logout
+# login:
+#     path: /login
+    # target: /advert
+# register:
+#     path: /register
+# login_check:
+    # path: /fos_user_security_check
+    # target: /advert
+# logout:
+#     path: /logout
 
 admin_create:
     path: /admin
