@@ -61,21 +61,21 @@ admin_list_users:
     path: /admin/list-users
     controller: App\Controller\AdminUsersController::listOfUsers
 
-roles_user:
-    path: /admin/roles-user/{id}
+admin_edit_roles_user:
+    path: /admin/edit/roles-user/{id}
     controller: App\Controller\AdminUsersController::rolesOfUser
     requirements:
         id: '\d+'
 
-admin_delete:
-    path: /admin/delete/{id}
-    controller: App\Controller\AdminUsersController::deleteAdmin
+admin_delete_user:
+    path: /admin/delete-user/{id}
+    controller: App\Controller\AdminUsersController::deleteUser
     requirements:
         id: '\d+'
 
-admin_edit:
-    path: /admin/edit/{id}
-    controller: App\Controller\AdminUsersController::editAdmin
-    requirements:
-        id: '\d+'
+# admin_edit:
+#     path: /admin/edit/{id}
+#     controller: App\Controller\AdminUsersController::editAdmin
+#     requirements:
+#         id: '\d+'
 #End AdminUsersController  

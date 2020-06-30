@@ -41,11 +41,11 @@
                 </td>
                 <td>{{listUser.lastLogin | date('d/m/Y H:i:s')}}</td>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <td><a class="btn btn-success" href="{{path('roles_user',{'id': listUser.id})}}" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
+                    <td><a class="btn btn-success" href="{{path('admin_edit_roles_user',{'id': listUser.id})}}" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
                 {% endif %}
                 
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a class="btn btn-danger" href="{{path('admin_delete',{'id': listUser.id})}}" role="button">
+                    <td><a class="btn btn-danger" href="{{path('admin_delete_user',{'id': listUser.id})}}" role="button">
                     <i class="glyphicon glyphicon-trash" ></i></a></td>
                 {% endif %}
                 
