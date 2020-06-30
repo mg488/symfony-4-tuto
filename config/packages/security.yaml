@@ -25,8 +25,8 @@ security:
                 always_use_default_target_path: true
                 default_target_path: /advert
             logout:       
-                path: fos_user_security_logout
-                target: /advert 
+                path:   fos_user_security_logout
+                target: fos_user_security_login 
             anonymous:    true
             # remember_me:
                 # key:       "kernel.secret"

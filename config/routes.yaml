@@ -65,7 +65,5 @@ admin_edit:
     requirements:
         id: '\d+'
         
-user_create:
-    path: /user
-    controller: App\Controller\UserController::createUser
+
   
