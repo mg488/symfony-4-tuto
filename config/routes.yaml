@@ -3,9 +3,20 @@ fos_user:
 index:
    path: /post
    controller: App\Controller\PostController::index
+
 pathFuncIcidonnelePath:
    path: /test
    controller: App\Controller\PostController::test
+#    user Manager
+user_List:
+   path: /userManager-list-of-users
+   controller: App\Controller\PostController::userListManager
+user_Create:
+   path: /userManager-update-user
+   controller: App\Controller\PostController::userCreate
+user_Update:
+   path: /userManager-update-user
+   controller: App\Controller\PostController::userUpdate
 
 advert_index:
     path: /advert/{page} #parth('advert_index') =>index-advert
@@ -45,25 +56,26 @@ advert_contact:
     path: /advert/contact
     controller: App\Controller\AdvertController::contactAction
 
-admin_create:
-    path: /admin
-    controller: App\Controller\AdminController::createAdmin
+#Start AdminUsersController 
+admin_list_users:
+    path: /admin/list-users
+    controller: App\Controller\AdminUsersController::listOfUsers
 
-admin_list:
-    path: /admin/list
-    controller: App\Controller\AdminController::listAdmin
+roles_user:
+    path: /admin/roles-user/{id}
+    controller: App\Controller\AdminUsersController::rolesOfUser
+    requirements:
+        id: '\d+'
 
 admin_delete:
     path: /admin/delete/{id}
-    controller: App\Controller\AdminController::deleteAdmin
+    controller: App\Controller\AdminUsersController::deleteAdmin
     requirements:
         id: '\d+'
 
 admin_edit:
     path: /admin/edit/{id}
-    controller: App\Controller\AdminController::editAdmin
+    controller: App\Controller\AdminUsersController::editAdmin
     requirements:
         id: '\d+'
-        
-
-  
+#End AdminUsersController  

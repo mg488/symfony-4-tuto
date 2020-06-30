@@ -36,10 +36,14 @@
         <h3>Les annonces</h3>
           <ul class="nav nav-pills nav-stacked">
                {% if is_granted('ROLE_ADMIN')%}
-                <li><a href="{{path('admin_create')}}">Ajouter admins </a></li><br>
-                <li><a href="{{path('admin_list')}}"> Liste des admins </a></li><br>
+                  <li><a href="{{path('admin_list_users')}}">admin List of users </a></li><br>
+                  <li><a href="{{path('fos_user_registration_register')}}">admin add user </a></li><br>
+                  
               {% endif %}
                 {# <li><a href="{{path('pathFuncIcidonnelePath')}}" >Page de test</a></li>  #}
+                {# <li><a href="{{path('user_Create')}}"> UserManager (Create users) </a></li><br> #}
+                {# <li><a href="{{path('user_List')}}"> UserManager (list of users) </a></li><br> #}
+                {# <li><a href="{{path('user_Update')}}"> UserManager (update user) </a></li><br> #}
                 <li><a href="{{path('advert_index')}}">Liste des annonces</a></li>
                 <li><a href="{{path('fos_user_registration_register')}}">Créer mon compte</a></li>
               <!-- <li><a href="{#{path('index')}#}" >Liste de posts (Tuto youtube)</a></li> -->

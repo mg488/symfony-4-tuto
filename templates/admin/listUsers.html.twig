@@ -24,8 +24,7 @@
             <th scope="col">cpt</th>
             <th scope="col">Username</th>
             <th scope="col">Roles</th>
-            <th scope="col">Date de création</th>
-            <th scope="col">Date de mis à jour</th>
+            <th scope="col">Dernière connexion</th>
             <th scope="col">Édit</th>
             <th scope="col">Delete</th>
             </tr>
@@ -40,10 +39,9 @@
                         {{listUser.roles[i]}} {% if not loop.last %} , {% endif %}
                     {% endfor %}
                 </td>
-                <td>{{listUser.dateCrea | date('d/m/Y H:i:s')}}</td>
-                <td>{{listUser.dateMaj | date('d/m/Y H:i:s')}}</td>
+                <td>{{listUser.lastLogin | date('d/m/Y H:i:s')}}</td>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <td><a class="btn btn-success" href="{{path('admin_edit',{'id': listUser.id})}}" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
+                    <td><a class="btn btn-success" href="{{path('roles_user',{'id': listUser.id})}}" role="button"><i class="glyphicon glyphicon-pencil" ></i></a></td>
                 {% endif %}
                 
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
