@@ -30,55 +30,79 @@
         </a>
       </p>
     </div>
-
+    {# {% include "nav.html.twig" %} #}
     <div class="row">
-      <div id="menu" class="col-md-3">
-        <h3>Les annonces</h3>
+      <div id="menu" class="col-md-2 card">
+        <h5>Les des annonces</h5>
           <ul class="nav nav-pills nav-stacked">
                {% if is_granted('ROLE_ADMIN')%}
-                  <li><a href="{{path('admin_list_users')}}">admin List of users </a></li><br>
-                  <li><a href="{{path('fos_user_registration_register')}}">admin add user </a></li><br>
+                  <a class="text-sm-left btn btn-outline-success col-sm-12" href="{{path('admin_list_users')}}">
+                    <small>admin List of users</small>
+                    <i class="glyphicon glyphicon-list"></i>
+                  </a>
+                  <a class="text-sm-left btn btn-outline-success col-sm-12" href="{{path('fos_user_registration_register')}}">
+                    <small>admin add user</small>
+                    <i class="glyphicon glyphicon-plus"></i> 
+                  </a>
                   
               {% endif %}
-                {# <li><a href="{{path('pathFuncIcidonnelePath')}}" >Page de test</a></li>  #}
-                {# <li><a href="{{path('user_Create')}}"> UserManager (Create users) </a></li><br> #}
-                {# <li><a href="{{path('user_List')}}"> UserManager (list of users) </a></li><br> #}
-                {# <li><a href="{{path('user_Update')}}"> UserManager (update user) </a></li><br> #}
-                <li><a href="{{path('advert_index')}}">Liste des annonces</a></li>
-                <li><a href="{{path('fos_user_registration_register')}}">Créer mon compte</a></li>
+                <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_index')}}">
+                  <small>Liste des annonces</small>
+                  <i class="glyphicon glyphicon-list"></i>
+                </a>
+                <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_registration_register')}}">
+                  <small>Créer mon compte</small>
+                </a>
               <!-- <li><a href="{#{path('index')}#}" >Liste de posts (Tuto youtube)</a></li> -->
               
               {% if app.user == null %}
-                <li><a href="{{path('fos_user_security_login')}}">Page de Connexion </a></li><br>
+                <a href="{{path('fos_user_security_login')}}">
+                  <small>Page de Connexion</small>
+                  <i class="glyphicon glyphicon-log-in"></i> 
+                </a>
               {% else %}
-                <li><a href="{{path('advert_contact')}}" >Nous contacter</a></i>
+                  <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_contact')}}">
+                    <small>Nous contacter</small>
+                    <i class="glyphicon glyphicon-pencil"></i>
+                  </a>
                 {% if is_granted('ROLE_AUTEUR') %}
-                  <li><a href="{{path('advert_add')}}">Ajouter une annonce</a></li><br>
+                  <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_add')}}"> 
+                    <small> Ajouter une annonce</small>
+                    <i class="glyphicon glyphicon-plus"></i>
+                 </a>
+                  <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_profile_edit')}}">
+                    <small>Changer de email</small>
+                  </a>
+                  <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_change_password')}}">
+                    <small>Changer mot de passe</small>
+                    <i class="glyphicon glyphicon-lock"></i>
+                  </a>
                 {% endif %}
-                <a class="btn btn-danger" href="{{path('fos_user_security_logout')}}" role="button">Deconnexion
-                <i class="glyphicon glyphicon-off" ></i></a>
+                <a class="text-sm-left btn btn-outline-danger col-sm-12" href="{{path('fos_user_security_logout')}}">
+                  <small>Deconnexion</small>
+                  <i class="glyphicon glyphicon-log-out"></i>
+                </a>
               {% endif %}
               
           </ul>
           </ul>
 
-          <h4>Dernières annonces</h4>
+          <h5>Dernières annonces</h5>
             <!-- injection de contrôleur 
             => rajoute de l'action menuAction et ceci
             => retourne une réponse avec le template menu (donc le tableau passé en paramétre dans
                 menuAction est disponible).
             =>ce qui permet de pouvoir passer l'url href="{"{ path('advert_view', {'id': advert.id}) }#}"
               dans le template menu-->
-              {{ render(controller("App\\Controller\\AdvertController::menuAction", {'limit': 3})) }}
+            <h6> {{ render(controller("App\\Controller\\AdvertController::menuAction", {'limit': 3})) }}</h6>
       </div>
-      <div id="content" class="col-md-9">
+      <div id="content" class="col-md-10 card">
         {% block body %}
         {% endblock %}
       </div>
     </div>
 
     <hr>
-
     <footer>
       <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
     </footer>

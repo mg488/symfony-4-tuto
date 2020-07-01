@@ -28,7 +28,8 @@ security:
                 path:   fos_user_security_logout
                 target: fos_user_security_login 
             anonymous:    true
-            # remember_me:
+            remember_me:
+                secret: kernel.secret
                 # key:       "kernel.secret"
                 # lifetime: 604800 # 1 week in seconds
                 # path:     /
