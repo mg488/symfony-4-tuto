@@ -162,6 +162,7 @@ class AdvertController extends AbstractController
         $advert=$repo->find($id);
         if($advert === null)
         {
+          #Erreur 404
           throw new NotFoundHttpException('\'annonce avec l\'id : '.$id .' n\'existe pas');
         }
 
