@@ -1,11 +1,11 @@
 {% extends "base.html.twig" %}
-{% block title %} {{ parent() }} - {% trans %} edit an announcement{% endtrans %}{% endblock %}
+{% block title %} {{ parent() }} - {% trans %} edit an advertisement{% endtrans %}{% endblock %}
 {% block body %}
 
   <body>
     <h1> 
       {# Editer l'annonce id #}
-      {% trans %} Edit an announcement{% endtrans %}
+      {% trans %} Edit an advertisement{% endtrans %}
     :{{advert.id}}</h1>
     <p>
         {# Vous éditez une annonce déjà existante, merci de ne pas changer
@@ -21,7 +21,7 @@
         <a href="{{ path('advert_view', {'id': advert.id}) }}" class="btn btn-default">
           <i class="glyphicon glyphicon-chevron-left"></i>
           {# Retour à l'annonce #}
-         {% trans %} Back to announcement{% endtrans %}
+         {% trans %} Back to advertisement{% endtrans %}
         </a>
       </p>
   </body>

@@ -21,7 +21,7 @@
                     <div class="alert alert-success" role="alert">{{ message }} <br></div>
                 </div>
             {% endfor %}
-      </div>
+      
         <table class="table  table table-bordered">
         <thead>
             <tr>
@@ -29,11 +29,10 @@
             <th scope="col">{% trans %} Username{% endtrans %}</th>
             <th scope="col">{% trans %} Roles{% endtrans %}</th>
             <th scope="col">{% trans %} Last Connection{% endtrans %}</th>
-            <th scope="col">{% trans %} {% endtrans %}Édit</th>
+            <th scope="col">{% trans %} Edit{% endtrans %}</th>
             <th scope="col">{% trans %}Delete {% endtrans %}</th>
             </tr>
         </thead>
-        <tbody>
        {% for listUser in  listUsers %}
             <tr>
                 <th scope="row">{{loop.index}}</th>
@@ -55,6 +54,6 @@
                 
             </tr>
          {% endfor %}
-       </tbody>
     </table>
+    </div>
 {% endblock %}

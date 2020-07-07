@@ -1,159 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="8TM9pQ4" resname="Add a announcement">
-        <source>Add a announcement</source>
-        <target>Ajouter une annonce</target>
-      </trans-unit>
-      <trans-unit id="JSCgulZ" resname="Contact form">
-        <source>Contact form</source>
-        <target>Nous Contacter</target>
-      </trans-unit>
-      <trans-unit id="Xaj3_8K" resname="Back to list">
-        <source>Back to list</source>
-        <target>Retour à la liste</target>
-      </trans-unit>
-      <trans-unit id="koselWx" resname="Delete an announcement">
-        <source>Delete an announcement</source>
-        <target>Supprimer une annonce</target>
-      </trans-unit>
-      <trans-unit id="CUiQQYS" resname="Are you sure you want to delete the announcement ?">
-        <source>Are you sure you want to delete the announcement ?</source>
-        <target>Etes-vous sûrs de vouloir supprimer cette annonce ? ?</target>
-      </trans-unit>
-      <trans-unit id="y01aB0a" resname="ref of announcement">
-        <source>ref of announcement</source>
-        <target>réf de L'annonce</target>
-      </trans-unit>
-      <trans-unit id="OdmSSIm" resname="Back to announcement">
-        <source>Back to announcement</source>
-        <target>Retour à l'annonce</target>
-      </trans-unit>
-      <trans-unit id="aFY34G7" resname="Edit an announcement">
-        <source>Edit an announcement</source>
-        <target>Éditer l'annonce</target>
-      </trans-unit>
-      <trans-unit id="98WEJDW" resname="You are editing an already existing ad, please do not change&#10;            the general spirit of the advertisement already published.">
-        <source>You are editing an already existing ad, please do not change
-            the general spirit of the advertisement already published.</source>
-        <target>Vous éditez une annonce déjà existante, merci de ne pas changer
-        l'esprit général de l'annonce déjà publiée.</target>
-      </trans-unit>
-      <trans-unit id="HnwUgWa" resname="List of announcements">
-        <source>List of announcements</source>
-        <target>Liste des annonces</target>
-      </trans-unit>
-      <trans-unit id="GF_NsyJ" resname="Hello">
-        <source>Hello</source>
-        <target>Bonjour</target>
-      </trans-unit>
-      <trans-unit id="5fE5sN_" resname="Not an announcement yet !">
-        <source>Not an announcement yet !</source>
-        <target>Pas encore d'annonce !</target>
-      </trans-unit>
-      <trans-unit id="nWMiwfT" resname="Login">
-        <source>Login</source>
-        <target>Connexion</target>
-      </trans-unit>
-      <trans-unit id="_jxgD9e" resname="PassWord">
-        <source>PassWord</source>
-        <target>Mot de passe</target>
-      </trans-unit>
-      <trans-unit id="6YHdrkX" resname="Warning">
-        <source>Warning</source>
-        <target>Attention</target>
-      </trans-unit>
-      <trans-unit id="fZ63rLE" resname="Close">
-        <source>Close</source>
-        <target>Fermer</target>
-      </trans-unit>
-      <trans-unit id="ebbF.4f" resname="Back to the list">
-        <source>Back to the list</source>
-        <target>Retour à la liste</target>
-      </trans-unit>
-      <trans-unit id="kCKgRHr" resname="Edit announcement">
-        <source>Edit announcement</source>
-        <target>Éditer l'anonce</target>
-      </trans-unit>
-      <trans-unit id="kP_pLN_" resname="Delete announcement">
-        <source>Delete announcement</source>
-        <target>Supprimer l'annonce</target>
-      </trans-unit>
-      <trans-unit id="7OFRuh." resname="My ads platform">
-        <source>My ads platform</source>
-        <target>Ma plateforme d'annonces</target>
-      </trans-unit>
-      <trans-unit id="FY5wpmg" resname="This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs">
-        <source>This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs</source>
-        <target>Ce projet est propulsé par Symfony,et construit grâce au MOOC OpenClassrooms et SensioLabs.</target>
-      </trans-unit>
-      <trans-unit id="apAdRnj" resname="go visit my websie nguith.com &gt;&gt;&gt;">
-        <source>go visit my websie nguith.com &gt;&gt;&gt;</source>
-        <target><![CDATA[__go visit my websie nguith.com >>>]]></target>
-      </trans-unit>
-      <trans-unit id="fiCb3Dq" resname="list of announcements">
-        <source>list of announcements</source>
-        <target>Liste des annonces</target>
-      </trans-unit>
-      <trans-unit id="GAwW58k" resname="admin List of users">
-        <source>admin List of users</source>
-        <target>admin Liste des users</target>
-      </trans-unit>
-      <trans-unit id="uqUwMEe" resname="admin add user">
-        <source>admin add user</source>
-        <target>admin ajouter user</target>
-      </trans-unit>
-      <trans-unit id="ABU5vOP" resname="List of users">
-        <source>List of users</source>
-        <target>List des users</target>
-      </trans-unit>
-      <trans-unit id="hgM.daT" resname="Create an account">
-        <source>Create an account</source>
-        <target>Créer un compte</target>
-      </trans-unit>
-      <trans-unit id="ZQUidoK" resname="Login Page">
-        <source>Login Page</source>
-        <target>Page de connexion</target>
-      </trans-unit>
-      <trans-unit id="R6rzG4P" resname="Contact us">
-        <source>Contact us</source>
-        <target>Nous contacter</target>
-      </trans-unit>
-      <trans-unit id="QonjsaN" resname="Add an announcement">
-        <source>Add an announcement</source>
-        <target>Ajouter une annonce</target>
-      </trans-unit>
-      <trans-unit id="dSsGCrB" resname="Change your email">
-        <source>Change your email</source>
-        <target>Changer votre email</target>
-      </trans-unit>
-      <trans-unit id="P5yZH2O" resname="Change password">
-        <source>Change password</source>
-        <target>Change votre mot de pass</target>
-      </trans-unit>
-      <trans-unit id="YpfpWJS" resname="Logout Page">
-        <source>Logout Page</source>
-        <target>Page de Deconnexion</target>
-      </trans-unit>
-      <trans-unit id="828nxg0" resname="3 Latest announcements">
-        <source>3 Latest announcements</source>
-        <target>3 derniers annonces</target>
-      </trans-unit>
       <trans-unit id="3HKc152" resname="Delete admin">
         <source>Delete admin</source>
         <target>Supprimer admin</target>
       </trans-unit>
       <trans-unit id="PfgZ9IO" resname="Are you sure, you want to delete user ?">
         <source>Are you sure, you want to delete user ?</source>
-        <target>Voulez-vous supprimer l'utilisateur de façon définitive ?</target>
+        <target>Étes-vou sûrs de vouloir supprimer cet utilisateur ?</target>
       </trans-unit>
       <trans-unit id="47ienTP" resname="Username">
         <source>Username</source>
-        <target>non d'utilisateur</target>
+        <target>utilisateur</target>
       </trans-unit>
       <trans-unit id="G3iAlDd" resname="Back to users">
         <source>Back to users</source>
@@ -165,67 +27,201 @@
       </trans-unit>
       <trans-unit id="xxQZ85b" resname="Edit user by Admin">
         <source>Edit user by Admin</source>
-        <target>Édit utilisateur par Admin</target>
+        <target>Éditer utilisateur par un Admin</target>
       </trans-unit>
       <trans-unit id="OPoxPTN" resname="list admin">
         <source>list admin</source>
-        <target>Liste des admins</target>
+        <target>Liste admin</target>
       </trans-unit>
       <trans-unit id="UQKqPku" resname="List of admins">
         <source>List of admins</source>
         <target>Liste des admins</target>
       </trans-unit>
+      <trans-unit id="GF_NsyJ" resname="Hello">
+        <source>Hello</source>
+        <target>Bonjour</target>
+      </trans-unit>
       <trans-unit id="wlM3BVR" resname="Roles">
         <source>Roles</source>
-        <target>__Roles</target>
+        <target>Rôles</target>
       </trans-unit>
       <trans-unit id="N7rElSv" resname="Count">
         <source>Count</source>
-        <target>Compteur</target>
+        <target>Nombre</target>
       </trans-unit>
       <trans-unit id="RuXBQwA" resname="Last Connection">
         <source>Last Connection</source>
         <target>Dernière Connexion</target>
       </trans-unit>
-      <trans-unit id="47DEQpj" resname="">
-        <source></source>
-        <target>__</target>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Édit</target>
       </trans-unit>
       <trans-unit id="4tClSWj" resname="Delete">
         <source>Delete</source>
         <target>Supprimer</target>
       </trans-unit>
-      <trans-unit id="FUHB0TO" resname="add an announcement">
-        <source>add an announcement</source>
+      <trans-unit id="fH_gX60" resname="add an advertisement">
+        <source>add an advertisement</source>
+        <target>Ajouter une annonce</target>
+      </trans-unit>
+      <trans-unit id="FrTtIvL" resname="Add a advertisement">
+        <source>Add a advertisement</source>
         <target>Ajouter une annonce</target>
       </trans-unit>
       <trans-unit id="CT59X9u" resname="contact">
         <source>contact</source>
         <target>Contact</target>
       </trans-unit>
-      <trans-unit id="81ylsl2" resname="delete an announcement">
-        <source>delete an announcement</source>
+      <trans-unit id="JSCgulZ" resname="Contact form">
+        <source>Contact form</source>
+        <target>Formulaire de Contact</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="uBr.0O1" resname="delete an advertisement">
+        <source>delete an advertisement</source>
         <target>Supprimer une annonce</target>
       </trans-unit>
-      <trans-unit id="GB6_VDs" resname="edit an announcement">
-        <source>edit an announcement</source>
-        <target>Éditer une annonce</target>
+      <trans-unit id="C8Gb6Qf" resname="Delete an advertisement">
+        <source>Delete an advertisement</source>
+        <target>Supprimer une annonce</target>
+      </trans-unit>
+      <trans-unit id="ByQ3NTB" resname="Are you sure you want to delete the advertisement ?">
+        <source>Are you sure you want to delete the advertisement ?</source>
+        <target>Étes-vous sûrs de vouloir supprimer cette annonce</target>
+      </trans-unit>
+      <trans-unit id="pcOZzjU" resname="ref of advertisement">
+        <source>ref of advertisement</source>
+        <target>réf de l'annonce</target>
+      </trans-unit>
+      <trans-unit id="bipu_hH" resname="Back to advertisement">
+        <source>Back to advertisement</source>
+        <target>Retour à l'annonce</target>
+      </trans-unit>
+      <trans-unit id="Z4QbjJU" resname="edit an advertisement">
+        <source>edit an advertisement</source>
+        <target>Édite une annonce</target>
+      </trans-unit>
+      <trans-unit id="UtJ6qjO" resname="Edit an advertisement">
+        <source>Edit an advertisement</source>
+        <target>Édite une annonce</target>
+      </trans-unit>
+      <trans-unit id="98WEJDW" resname="You are editing an already existing ad, please do not change&#10;            the general spirit of the advertisement already published.">
+        <source>You are editing an already existing ad, please do not change
+            the general spirit of the advertisement already published.</source>
+        <target>Vous éditez une annonce déjà existante, merci de ne pas changer
+        l'esprit général de l'annonce déjà publiée.</target>
       </trans-unit>
       <trans-unit id="Qlh3RdL" resname="index Advert">
         <source>index Advert</source>
-        <target>index Advert</target>
+        <target>index Annonce</target>
+      </trans-unit>
+      <trans-unit id="cYzV.qu" resname="List of advertisements">
+        <source>List of advertisements</source>
+        <target>Liste des annonces</target>
+      </trans-unit>
+      <trans-unit id="Of2Oucc" resname="Not an advertisement yet !">
+        <source>Not an advertisement yet !</source>
+        <target>Pas encore d'annonces !</target>
       </trans-unit>
       <trans-unit id="kkUI0SJ" resname="authentification">
         <source>authentification</source>
         <target>authentification</target>
       </trans-unit>
-      <trans-unit id="hhGKO3." resname="announcement">
-        <source>announcement</source>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>S'identifier</target>
+      </trans-unit>
+      <trans-unit id="_jxgD9e" resname="PassWord">
+        <source>PassWord</source>
+        <target>mot de passe</target>
+      </trans-unit>
+      <trans-unit id="6YHdrkX" resname="Warning">
+        <source>Warning</source>
+        <target>Attention</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Fermer</target>
+      </trans-unit>
+      <trans-unit id="qs_6fRk" resname="advertisement">
+        <source>advertisement</source>
         <target>annonce</target>
       </trans-unit>
-      <trans-unit id="T3sJEsM" resname="My announcements platform">
-        <source>My announcements platform</source>
-        <target>Ma platform d'annonces </target>
+      <trans-unit id="ebbF.4f" resname="Back to the list">
+        <source>Back to the list</source>
+        <target>Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="jQ6YljV" resname="Edit advertisement">
+        <source>Edit advertisement</source>
+        <target>Éditer une annonce</target>
+      </trans-unit>
+      <trans-unit id="nysFCO." resname="Delete advertisement">
+        <source>Delete advertisement</source>
+        <target>Supprimer une annonce</target>
+      </trans-unit>
+      <trans-unit id="fsTA7g_" resname="My advertisements platform">
+        <source>My advertisements platform</source>
+        <target>Ma platform d'annonces</target>
+      </trans-unit>
+      <trans-unit id="FY5wpmg" resname="This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs">
+        <source>This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs</source>
+        <target>Ce projet est propulsé par Symfony,et construit grâce au MOOC OpenClassrooms et SensioLabs.</target>
+      </trans-unit>
+      <trans-unit id="apAdRnj" resname="go visit my websie nguith.com &gt;&gt;&gt;">
+        <source>go visit my websie nguith.com &gt;&gt;&gt;</source>
+        <target><![CDATA[aller visiter mon site nguith.com >>>]]></target>
+      </trans-unit>
+      <trans-unit id="of0sT8M" resname="list of advertisements">
+        <source>list of advertisements</source>
+        <target>Liste des anoonces</target>
+      </trans-unit>
+      <trans-unit id="GAwW58k" resname="admin List of users">
+        <source>admin List of users</source>
+        <target>admin Liste des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="uqUwMEe" resname="admin add user">
+        <source>admin add user</source>
+        <target>admin ajouter une utilisateur</target>
+      </trans-unit>
+      <trans-unit id="p_z7MPm" resname="List of advertisement">
+        <source>List of advertisement</source>
+        <target>Liste des annonces</target>
+      </trans-unit>
+      <trans-unit id="hgM.daT" resname="Create an account">
+        <source>Create an account</source>
+        <target>Créer un compte</target>
+      </trans-unit>
+      <trans-unit id="ZQUidoK" resname="Login Page">
+        <source>Login Page</source>
+        <target>Page de connexion</target>
+      </trans-unit>
+      <trans-unit id="R6rzG4P" resname="Contact us">
+        <source>Contact us</source>
+        <target>Nous Contacter</target>
+      </trans-unit>
+      <trans-unit id="plbyPxs" resname="Add an advertisement">
+        <source>Add an advertisement</source>
+        <target>Ajouter une annonce</target>
+      </trans-unit>
+      <trans-unit id="dSsGCrB" resname="Change your email">
+        <source>Change your email</source>
+        <target>Changer votre email</target>
+      </trans-unit>
+      <trans-unit id="P5yZH2O" resname="Change password">
+        <source>Change password</source>
+        <target>Changer votre mot de passe</target>
+      </trans-unit>
+      <trans-unit id="YpfpWJS" resname="Logout Page">
+        <source>Logout Page</source>
+        <target>Page de Déconnexion</target>
+      </trans-unit>
+      <trans-unit id="o2.Xyp4" resname="3 Latest advertisements">
+        <source>3 Latest advertisements</source>
+        <target>3 dernières annonces</target>
       </trans-unit>
     </body>
   </file>

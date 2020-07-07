@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %} {{ parent()}} - {% trans %} announcement {% endtrans %} {{ listAdvImgCatApp.id }}{% endblock %}
+{% block title %} {{ parent()}} - {% trans %} advertisement {% endtrans %} {{ listAdvImgCatApp.id }}{% endblock %}
 
 {% block body %}
     <!-- //notice :Annonce bien enregistrée -->
@@ -66,7 +66,7 @@
       <a href="{{ path('advert_edit', {'id': listAdvImgCatApp.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-edit"></i>
       {# Modifier l'annonce #}
-      {% trans %} Edit announcement{% endtrans %}
+      {% trans %} Edit advertisement{% endtrans %}
     </a>
     {% endif %}
     
@@ -74,7 +74,7 @@
       <a href="{{ path('advert_delete', {'id': listAdvImgCatApp.id}) }}" class="btn btn-danger">
       <i class="glyphicon glyphicon-trash"></i>
       {# Supprimer l'annonce #}
-      {% trans %} Delete announcement {% endtrans %}
+      {% trans %} Delete advertisement {% endtrans %}
     </a>
     {% endif %}
     

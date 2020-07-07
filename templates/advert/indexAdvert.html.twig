@@ -15,7 +15,7 @@
     <div class="row"> 
       <div class="col-sm-9">
         {# <h2>Liste des annonces</h2> #}
-        <h2> {% trans %} List of announcements {% endtrans %} </h2>
+        <h2> {% trans %} List of advertisements {% endtrans %} </h2>
       </diV>
       <div class="col-sm-3">
         {% if  app.user.username is defined %}
@@ -31,7 +31,7 @@
         </li>
       {% else %}
         {# <li>Pas (encore !) d'annonces</li> #}
-        <li>{% trans %} Not an announcement yet !{% endtrans %}</li>
+        <li>{% trans %} Not an advertisement yet !{% endtrans %}</li>
       {% endfor %}
     </ul>
     <ul class="pagination">

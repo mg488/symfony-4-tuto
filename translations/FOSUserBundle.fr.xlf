@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -31,15 +31,15 @@
       </trans-unit>
       <trans-unit id="J.8npBV" resname="layout.login">
         <source>layout.login</source>
-        <target>__layout.login</target>
+        <target>login</target>
       </trans-unit>
       <trans-unit id="ci5Tbzf" resname="profile.edit.submit">
         <source>profile.edit.submit</source>
-        <target>__profile.edit.submit</target>
+        <target>Valider</target>
       </trans-unit>
       <trans-unit id="7g9SaRk" resname="profile.show.username">
         <source>profile.show.username</source>
-        <target>__profile.show.username</target>
+        <target>Utilisateur</target>
       </trans-unit>
       <trans-unit id="AaZaMf7" resname="profile.show.email">
         <source>profile.show.email</source>
@@ -67,7 +67,7 @@
       </trans-unit>
       <trans-unit id="hmX3IJA" resname="registration.submit">
         <source>registration.submit</source>
-        <target>__registration.submit</target>
+        <target>Valider</target>
       </trans-unit>
       <trans-unit id="_cY.wHP" resname="resetting.check_email">
         <source>resetting.check_email</source>
@@ -87,7 +87,7 @@
       </trans-unit>
       <trans-unit id="55aST1i" resname="resetting.request.submit">
         <source>resetting.request.submit</source>
-        <target>__resetting.request.submit</target>
+        <target>__resetting.request.</target>
       </trans-unit>
       <trans-unit id="KsNOzZz" resname="resetting.reset.submit">
         <source>resetting.reset.submit</source>
@@ -95,19 +95,19 @@
       </trans-unit>
       <trans-unit id="cMU.0rQ" resname="security.login.username">
         <source>security.login.username</source>
-        <target>__security.login.username</target>
+        <target>Utilisateur</target>
       </trans-unit>
       <trans-unit id="N_kLMwm" resname="security.login.password">
         <source>security.login.password</source>
-        <target>__security.login.password</target>
+        <target>Mot de passe</target>
       </trans-unit>
       <trans-unit id="8DSptbg" resname="security.login.remember_me">
         <source>security.login.remember_me</source>
-        <target>__security.login.remember_me</target>
+        <target>se souvenir de moi</target>
       </trans-unit>
       <trans-unit id="tuAV77Z" resname="security.login.submit">
         <source>security.login.submit</source>
-        <target>__security.login.submit</target>
+        <target>Valider</target>
       </trans-unit>
     </body>
   </file>
