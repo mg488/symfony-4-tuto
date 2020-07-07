@@ -72,14 +72,8 @@ admin_delete_user:
     controller: App\Controller\AdminUsersController::deleteUser
     requirements:
         id: '\d+'
-# End AdminUsersController
-plateform_translator:
-    # path: /{_locale}/traduction/{name}
-    path: /traduction/{name}
-    controller: App\Controller\AdvertController::translationAction
-
-# oc_platform:
-#   resource: "@OCPlatformBundle/Resources/config/routing.yml"
-#   prefix:   /{_locale}/platform
-#   requirements:
-#     _locale: en|fr # les locales disponibles, séparées par des pipes « | »
+change_locake:
+    path: /change-locale/{locale}
+    controller: App\Controller\MainController::changeLocale
+    # requirements:
+        # locale: ['a-z']
