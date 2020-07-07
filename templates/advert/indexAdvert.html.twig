@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} - index Advert{% endblock %}
+{% block title %}{{ parent()}} - {% trans %} index Advert {% endtrans %}{% endblock %}
 
 {% block body %}
 {% for message in app.flashes('info') %} {#//L'annonce a bien été supprimée.#}

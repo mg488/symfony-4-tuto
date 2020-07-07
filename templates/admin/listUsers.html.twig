@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %} {{ parent()}} - list admin {% endblock %}
+{% block title %} {{ parent()}} - {% trans %} list admin{% endtrans %} {% endblock %}
 
 {% block body %}
-    <h1>Liste des admins</h1> 
+    {# <h1>Liste des admins</h1>  #}
+    <h1>{% trans %} List of admins{% endtrans %}</h1> 
         <div class="col-sm-12">
             {% if  app.user.username is defined %}
-                <small>Bonjour : {{ app.user.username }} <br>
-                        Roles :
+                <small>
+                {# Bonjour  #}
+                {% trans %} Hello {% endtrans %}
+                : {{ app.user.username }} <br>
+                    {% trans %} Roles{% endtrans %} :
                     {% for i in 0..app.user.roles | length - 1 %}
                         {{app.user.roles[i]}} {% if not loop.last %} , {% endif %}
                     {% endfor %}
@@ -21,12 +25,12 @@
         <table class="table  table table-bordered">
         <thead>
             <tr>
-            <th scope="col">cpt</th>
-            <th scope="col">Username</th>
-            <th scope="col">Roles</th>
-            <th scope="col">Dernière connexion</th>
-            <th scope="col">Édit</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{% trans %} Count{% endtrans %}</th>
+            <th scope="col">{% trans %} Username{% endtrans %}</th>
+            <th scope="col">{% trans %} Roles{% endtrans %}</th>
+            <th scope="col">{% trans %} Last Connection{% endtrans %}</th>
+            <th scope="col">{% trans %} {% endtrans %}Édit</th>
+            <th scope="col">{% trans %}Delete {% endtrans %}</th>
             </tr>
         </thead>
         <tbody>

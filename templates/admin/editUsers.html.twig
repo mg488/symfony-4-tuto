@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
-{% block title %} {{ parent()}} - modifier admin {% endblock %}
+{% block title %} {{ parent()}} - {% trans %} modify admin{% endtrans %} {% endblock %}
 {% block body %}
-    <h1 class="text-center">Éditer user by Admin</h1>
+    <h1 class="text-center">{% trans %} Edit user by Admin{% endtrans %}</h1>
     {{form_start(form)}}
     <div class='form-group'>
         <div class="row">

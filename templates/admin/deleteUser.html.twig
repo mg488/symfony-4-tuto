@@ -1,15 +1,17 @@
 {% extends "base.html.twig" %}
-
+{% block title %} {{ parent()}} - {% trans %} Delete admin{% endtrans %} {% endblock %}
 {% block body %}
-    <p>Voulez-vous supprimer le user de façon définitive ?</p> 
+    {# <p>Voulez-vous supprimer l'utilisateur de façon définitive ?</p>  #}
+    <p>{% trans %} Are you sure, you want to delete user ?{% endtrans %}</p>
     <form action="{{ path('admin_delete_user', {'id': user.id}) }}" method="post">
         <div class="row">
-            Username :  {{user.username}}
+            {% trans %} Username {% endtrans %} :  {{user.username}}
         </div>
         <div class="row">
             <a href="{{ path('admin_list_users', {'id': user.id}) }}" class="btn btn-default">
             <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour aux users
+            {# Retour aux utilisateurs #}
+            {% trans %} Back to users{% endtrans %}
             </a>
             {# Ici j'ai écrit le bouton de soumission à la main #}
             <input type="submit" value="Supprimer" class="btn btn-danger" />

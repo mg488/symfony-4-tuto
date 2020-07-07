@@ -20,7 +20,7 @@
   <div class="container">
     <div id="header" class="jumbotron">
       {# <h1>Ma plateforme d'annonces</h1> #}
-      <h1>{% trans %} My ads platform {% endtrans %} </h1>
+      <h1>{% trans %} My advertisements platform {% endtrans %} </h1>
     
       {# <p>Ce projet est propulsé par Symfony,et construit grâce au MOOC OpenClassrooms et SensioLabs.</p> #}
       <p>{% trans %} This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs {% endtrans %}</p>
@@ -35,7 +35,7 @@
     <div class="row">
       <div id="menu" class="col-md-2 card">
         {# <h5>Les des annonces</h5> #}
-        <h5 class="text-sm-left">{% trans %} list of announcements {% endtrans %}</h5>
+        <h5 class="text-sm-left">{% trans %} list of advertisements {% endtrans %}</h5>
           <ul class="nav nav-pills nav-stacked">
                {% if is_granted('ROLE_ADMIN')%}
                   <a class="text-sm-left btn btn-outline-success col-sm-12" href="{{path('admin_list_users')}}">
@@ -54,7 +54,7 @@
                 </a>
                 <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_index')}}">
                   {# <small>Liste des annonces</small> #}
-                  <small>{% trans %} List of users {% endtrans %}</small>
+                  <small>{% trans %} List of advertisement {% endtrans %}</small>
                   <i class="glyphicon glyphicon-list"></i>
                 </a>
                 <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_registration_register')}}">
@@ -78,7 +78,7 @@
                 {% if is_granted('ROLE_AUTEUR') %}
                   <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_add')}}"> 
                     {# <small> Ajouter une annonce</small> #}
-                    <small>{% trans %} Add an announcement{% endtrans %}</small>
+                    <small>{% trans %} Add an advertisement{% endtrans %}</small>
                     <i class="glyphicon glyphicon-plus"></i>
                  </a>
                   <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_profile_edit')}}">
@@ -102,7 +102,7 @@
           </ul>
 
           {# <h5>Dernières annonces</h5> #}
-          <h5>{% trans %} 3 Latest announcements {% endtrans %}</h5>
+          <h5>{% trans %} 3 Latest advertisements {% endtrans %}</h5>
             <!-- injection de contrôleur 
             => rajoute de l'action menuAction et ceci
             => retourne une réponse avec le template menu (donc le tableau passé en paramétre dans

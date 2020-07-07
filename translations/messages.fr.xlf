@@ -92,7 +92,7 @@
         <target>Ce projet est propulsé par Symfony,et construit grâce au MOOC OpenClassrooms et SensioLabs.</target>
       </trans-unit>
       <trans-unit id="apAdRnj" resname="go visit my websie nguith.com &gt;&gt;&gt;">
-        <source>Allez vister mon site nguith.com &gt;&gt;&gt;</source>
+        <source>go visit my websie nguith.com &gt;&gt;&gt;</source>
         <target><![CDATA[__go visit my websie nguith.com >>>]]></target>
       </trans-unit>
       <trans-unit id="fiCb3Dq" resname="list of announcements">
@@ -142,6 +142,90 @@
       <trans-unit id="828nxg0" resname="3 Latest announcements">
         <source>3 Latest announcements</source>
         <target>3 derniers annonces</target>
+      </trans-unit>
+      <trans-unit id="3HKc152" resname="Delete admin">
+        <source>Delete admin</source>
+        <target>Supprimer admin</target>
+      </trans-unit>
+      <trans-unit id="PfgZ9IO" resname="Are you sure, you want to delete user ?">
+        <source>Are you sure, you want to delete user ?</source>
+        <target>Voulez-vous supprimer l'utilisateur de façon définitive ?</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>non d'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="G3iAlDd" resname="Back to users">
+        <source>Back to users</source>
+        <target>Retour aux utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="hNN4Jg3" resname="modify admin">
+        <source>modify admin</source>
+        <target>modifier admin</target>
+      </trans-unit>
+      <trans-unit id="xxQZ85b" resname="Edit user by Admin">
+        <source>Edit user by Admin</source>
+        <target>Édit utilisateur par Admin</target>
+      </trans-unit>
+      <trans-unit id="OPoxPTN" resname="list admin">
+        <source>list admin</source>
+        <target>Liste des admins</target>
+      </trans-unit>
+      <trans-unit id="UQKqPku" resname="List of admins">
+        <source>List of admins</source>
+        <target>Liste des admins</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>__Roles</target>
+      </trans-unit>
+      <trans-unit id="N7rElSv" resname="Count">
+        <source>Count</source>
+        <target>Compteur</target>
+      </trans-unit>
+      <trans-unit id="RuXBQwA" resname="Last Connection">
+        <source>Last Connection</source>
+        <target>Dernière Connexion</target>
+      </trans-unit>
+      <trans-unit id="47DEQpj" resname="">
+        <source></source>
+        <target>__</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="FUHB0TO" resname="add an announcement">
+        <source>add an announcement</source>
+        <target>Ajouter une annonce</target>
+      </trans-unit>
+      <trans-unit id="CT59X9u" resname="contact">
+        <source>contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="81ylsl2" resname="delete an announcement">
+        <source>delete an announcement</source>
+        <target>Supprimer une annonce</target>
+      </trans-unit>
+      <trans-unit id="GB6_VDs" resname="edit an announcement">
+        <source>edit an announcement</source>
+        <target>Éditer une annonce</target>
+      </trans-unit>
+      <trans-unit id="Qlh3RdL" resname="index Advert">
+        <source>index Advert</source>
+        <target>index Advert</target>
+      </trans-unit>
+      <trans-unit id="kkUI0SJ" resname="authentification">
+        <source>authentification</source>
+        <target>authentification</target>
+      </trans-unit>
+      <trans-unit id="hhGKO3." resname="announcement">
+        <source>announcement</source>
+        <target>annonce</target>
+      </trans-unit>
+      <trans-unit id="T3sJEsM" resname="My announcements platform">
+        <source>My announcements platform</source>
+        <target>Ma platform d'annonces </target>
       </trans-unit>
     </body>
   </file>
