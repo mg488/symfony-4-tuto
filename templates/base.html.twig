@@ -21,7 +21,6 @@
     <div id="header" class="jumbotron">
       {# <h1>Ma plateforme d'annonces</h1> #}
       <h1>{% trans %} My advertisements platform {% endtrans %} </h1>
-    
       {# <p>Ce projet est propulsé par Symfony,et construit grâce au MOOC OpenClassrooms et SensioLabs.</p> #}
       <p>{% trans %} This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs {% endtrans %}</p>
       <p>
@@ -30,7 +29,17 @@
           {% trans %} go visit my websie nguith.com >>> {% endtrans %}
         </a>
       </p>
-    </div>
+      <div class = "row pull-right">
+        {% for locale in locales if locale != app.request.locale %}
+          <div class = "col-sm-5">
+              <p>
+                {# <a href="#"><img src="{{asset('images/8.png')}}"> anglais</a> #}
+                <a href="#" alt="{{locale}}"> {{locale}} </a>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     {# {% include "nav.html.twig" %} #}
     <div class="row">
       <div id="menu" class="col-md-2 card">

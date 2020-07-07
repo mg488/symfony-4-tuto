@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdvertController extends AbstractController
 {
@@ -95,7 +96,7 @@ class AdvertController extends AbstractController
   /**
    * @Security("has_role('ROLE_AUTEUR')")
    */
-    public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em) :Response
+    public function add(Request $request, AntispamService $antispam, EntityManagerInterface $em, TranslatorInterface $translator) :Response
     {
             //  // On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR
             // if (!$this->get('security.authorization_checker')->isGranted('ROLE_AUTEUR')) {
@@ -124,7 +125,9 @@ class AdvertController extends AbstractController
 
                 $em->persist($advert);
                 $em->flush();
-                $this->addFlash('notice', 'Annonce bien enregistrée.');
+                $message =  $translator->trans('Advert saved successfully !');
+                $this->addFlash('notice', $message);
+               
                 return $this->redirectToRoute('advert_view', array('id' =>$advert->getId()));
               }
             }

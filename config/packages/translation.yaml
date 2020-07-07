@@ -1,7 +1,6 @@
 framework:
-    default_locale: '%locale%' #m.G :cette variable est définie dans package/translation.yaml
+    default_locale: en #m.G : pour definition de la langue par défaut
     translator:
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
-            - '%locale%'       #m.G :cette variable est définie dans package/translation.yaml
-                               #m.G :langue de repli 
+            - en 
