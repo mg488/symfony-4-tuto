@@ -3,17 +3,25 @@
 {% block body %}
 
   <body>
-    <h1> Editer l'annonce id:{{advert.id}}</h1>
+    <h1> 
+      {# Editer l'annonce id #}
+      {% trans %} Edit an announcement{% endtrans %}
+    :{{advert.id}}</h1>
     <p>
-        Vous éditez une annonce déjà existante, merci de ne pas changer
-        l'esprit général de l'annonce déjà publiée.
+        {# Vous éditez une annonce déjà existante, merci de ne pas changer
+        l'esprit général de l'annonce déjà publiée. #}
+        {% trans %}
+            You are editing an already existing ad, please do not change
+            the general spirit of the advertisement already published. 
+        {% endtrans %}
         {#on fait appel au formulaire de gestion des annonces#}
         
         {% include "advert/formAdvert.html.twig" %}
 
         <a href="{{ path('advert_view', {'id': advert.id}) }}" class="btn btn-default">
           <i class="glyphicon glyphicon-chevron-left"></i>
-          Retour à l'annonce
+          {# Retour à l'annonce #}
+         {% trans %} Back to announcement{% endtrans %}
         </a>
       </p>
   </body>

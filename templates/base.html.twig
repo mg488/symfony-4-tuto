@@ -19,67 +19,81 @@
 <body>
   <div class="container">
     <div id="header" class="jumbotron">
-      <h1>Ma plateforme d'annonces</h1>
-      <p>
-        Ce projet est propulsé par Symfony,
-        et construit grâce au MOOC OpenClassrooms et SensioLabs.
-      </p>
+      {# <h1>Ma plateforme d'annonces</h1> #}
+      <h1>{% trans %} My ads platform {% endtrans %} </h1>
+    
+      {# <p>Ce projet est propulsé par Symfony,et construit grâce au MOOC OpenClassrooms et SensioLabs.</p> #}
+      <p>{% trans %} This project is powered by Symfony, and built using MOOC OpenClassrooms and SensioLabs {% endtrans %}</p>
       <p>
         <a class="btn btn-primary btn-lg" href="http://www.nguith.com/">
-          aller voir mon site nguith.com »
+          {# aller voir mon site nguith.com » #}
+          {% trans %} go visit my websie nguith.com >>> {% endtrans %}
         </a>
       </p>
     </div>
     {# {% include "nav.html.twig" %} #}
     <div class="row">
       <div id="menu" class="col-md-2 card">
-        <h5>Les des annonces</h5>
+        {# <h5>Les des annonces</h5> #}
+        <h5 class="text-sm-left">{% trans %} list of announcements {% endtrans %}</h5>
           <ul class="nav nav-pills nav-stacked">
                {% if is_granted('ROLE_ADMIN')%}
                   <a class="text-sm-left btn btn-outline-success col-sm-12" href="{{path('admin_list_users')}}">
-                    <small>admin List of users</small>
+                    <small>{% trans %} admin List of users {% endtrans %}</small>
                     <i class="glyphicon glyphicon-list"></i>
                   </a>
                   <a class="text-sm-left btn btn-outline-success col-sm-12" href="{{path('fos_user_registration_register')}}">
-                    <small>admin add user</small>
+                    <small>{% trans %} admin add user {% endtrans %}</small>
                     <i class="glyphicon glyphicon-plus"></i> 
                   </a>
                   
               {% endif %}
+                {# <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('plateform_translator', {'name': 'name'})}}"> #}
+                  {# <small>traduire en anglais</small> #}
+                  {# <i class="glyphicon glyphicon-list"></i> #}
+                </a>
                 <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_index')}}">
-                  <small>Liste des annonces</small>
+                  {# <small>Liste des annonces</small> #}
+                  <small>{% trans %} List of users {% endtrans %}</small>
                   <i class="glyphicon glyphicon-list"></i>
                 </a>
                 <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_registration_register')}}">
-                  <small>Créer mon compte</small>
+                  {# <small>Créer mon compte</small> #}
+                  <small>{% trans %}Create an account {% endtrans %}</small>
                 </a>
               <!-- <li><a href="{#{path('index')}#}" >Liste de posts (Tuto youtube)</a></li> -->
               
               {% if app.user == null %}
-                <a href="{{path('fos_user_security_login')}}">
-                  <small>Page de Connexion</small>
+                <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_security_login')}}">
+                  {# <small>Page de Connexion</small> #}
+                  <small>{% trans %} Login Page {% endtrans %}</small>
                   <i class="glyphicon glyphicon-log-in"></i> 
                 </a>
               {% else %}
                   <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_contact')}}">
-                    <small>Nous contacter</small>
+                    {# <small>Nous contacter</small> #}
+                    <small>{% trans %} Contact us {% endtrans %}</small>
                     <i class="glyphicon glyphicon-pencil"></i>
                   </a>
                 {% if is_granted('ROLE_AUTEUR') %}
                   <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('advert_add')}}"> 
-                    <small> Ajouter une annonce</small>
+                    {# <small> Ajouter une annonce</small> #}
+                    <small>{% trans %} Add an announcement{% endtrans %}</small>
                     <i class="glyphicon glyphicon-plus"></i>
                  </a>
                   <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_profile_edit')}}">
-                    <small>Changer de email</small>
+                    {# <small>Changer de email</small> #}
+                    <small>{% trans %} Change your email{% endtrans %}</small>
                   </a>
                   <a class="text-sm-left btn btn-outline-secondary col-sm-12" href="{{path('fos_user_change_password')}}">
-                    <small>Changer mot de passe</small>
+                    {# <small>Changer mot de passe</small> #}
+                    <small>{% trans %} Change password {% endtrans %}</small>
                     <i class="glyphicon glyphicon-lock"></i>
                   </a>
                 {% endif %}
                 <a class="text-sm-left btn btn-outline-danger col-sm-12" href="{{path('fos_user_security_logout')}}">
-                  <small>Deconnexion</small>
+                  {# <small>Deconnexion</small> #}
+                  <small>{% trans %} Logout Page{% endtrans %}</small>
                   <i class="glyphicon glyphicon-log-out"></i>
                 </a>
               {% endif %}
@@ -87,7 +101,8 @@
           </ul>
           </ul>
 
-          <h5>Dernières annonces</h5>
+          {# <h5>Dernières annonces</h5> #}
+          <h5>{% trans %} 3 Latest announcements {% endtrans %}</h5>
             <!-- injection de contrôleur 
             => rajoute de l'action menuAction et ceci
             => retourne une réponse avec le template menu (donc le tableau passé en paramétre dans

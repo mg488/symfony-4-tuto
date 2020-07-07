@@ -3,16 +3,22 @@
 
 {% block body %}
     <h2>Supprimer une annonce</h2>
+    <h2>{% trans %} Delete an announcement{% endtrans %}</h2>
      <p>
-    Etes-vous certain de vouloir supprimer l'annonce "{{ advert.title }}" ?<br>
-    <small> (réf de l'annonce : {{advert.id}})</small>
+    {# Etes-vous certain de vouloir supprimer l'annonce " #}
+    {% trans %} Are you sure you want to delete the announcement ? {% endtrans %}
+    "{{ advert.title }}" ?<br>
+    <small> 
+    {# (réf de l'annonce  #}
+    {% trans %} ref of announcement {% endtrans %}: {{advert.id}})</small>
     </p>
 
     {# On met l'id de l'annonce dans la route de l'action du formulaire #}
     <form action="{{ path('advert_delete', {'id': advert.id}) }}" method="post">
         <a href="{{ path('advert_view', {'id': advert.id}) }}" class="btn btn-default">
         <i class="glyphicon glyphicon-chevron-left"></i>
-        Retour à l'annonce
+        {# Retour à l'annonce #}
+        {% trans %} Back to announcement{% endtrans %}
         </a>
         {# Ici j'ai écrit le bouton de soumission à la main #}
         <input type="submit" value="Supprimer" class="btn btn-danger" />

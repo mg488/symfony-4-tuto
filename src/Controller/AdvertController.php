@@ -189,4 +189,11 @@ class AdvertController extends AbstractController
         ));
           
       }
+
+      public function translationAction($name, Request $request)
+      {
+        // dd($request->getLocale());
+        //##dd($request->getLocale()); // pour voir la langue locale##//
+        return $this->render('advert/translation.html.twig', array('name'=>$name));
+      }
 }
