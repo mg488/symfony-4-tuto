@@ -31,7 +31,7 @@
       </trans-unit>
       <trans-unit id="J.8npBV" resname="layout.login">
         <source>layout.login</source>
-        <target>login</target>
+        <target>S'identifier</target>
       </trans-unit>
       <trans-unit id="ci5Tbzf" resname="profile.edit.submit">
         <source>profile.edit.submit</source>

@@ -72,7 +72,7 @@ admin_delete_user:
     controller: App\Controller\AdminUsersController::deleteUser
     requirements:
         id: '\d+'
-change_locake:
+change_locale:
     path: /change-locale/{locale}
     controller: App\Controller\MainController::changeLocale
     # requirements:

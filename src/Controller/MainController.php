@@ -12,17 +12,21 @@ class MainController extends AbstractController
     #pour la gestion de la langue
     public function changeLocale($locale, Request $request)
     {
+        // dd('test');
         // dd($locales);
         // if(strpos($request->headers->get('accept-language'), $locale) == false)
         // {
         //     throw new NotFoundHttpException("La langue ".$locale." n'existe pas ! ");
         // }
         // dd($request->headers->get('accept-language'));
-        $request->getSession()->set('_locale',$locale);
 
+        $request->getSession()->set('_locale',$locale);
+        
+        // dd($request->headers->get('referer'));
         if($request->headers->get('referer') != null) 
         {
             return $this->redirect($request->headers->get('referer')); #rester dans la page qui demande un changement de langue
         }
+        
     }
 }
